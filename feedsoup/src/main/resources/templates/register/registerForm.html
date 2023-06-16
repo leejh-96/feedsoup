@@ -8,10 +8,88 @@
     <title>feedsoup - 회원가입</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/sidebar.css}" rel="stylesheet">
+    <link th:href="@{/css/registerForm.css}" rel="stylesheet">
 </head>
 <body>
-<th:block th:replace="fragments/sidebar/headersidebar.html::headerFragment"></th:block>
+    <th:block th:replace="fragments/sidebar/headersidebar.html::headerFragment"/>
 
-<th:block th:replace="fragments/sidebar/footersidebar.html::footerFragment"></th:block>
+    <h3>회원가입</h3>
+        <form id="form" action="" method="POST" class="form-control" onsubmit="return check()" novalidate>
+            <div class="form-group">
+                <div class="col-md-6 mb-3">
+                    <label for="userEmail">이메일</label>
+                    <input id="userEmail" type="text" class="form-control" placeholder="아이디로 사용할 이메일을 입력해주세요."required>
+                    <span>이메일을 올바르게 작성해주세요.</span>
+                    <span><button class="btn btn-secondary">인증하기</button></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 mb-3">
+                    <label for="password">비밀번호</label>
+                    <input id="password" type="password" class="form-control" placeholder="8~16자의 영문 대소문자,숫자,특수문자를 조합하여 비밀번호를 입력를 입력해주세요." required>
+                    <span>비밀번호를 올바르게 작성해주세요.</span>
+                    <span>사용가능한 비밀번호입니다.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 mb-3">
+                    <label for="passwordCheck">비밀번호 확인</label>
+                    <input id="passwordCheck" type="password" class="form-control" placeholder="비밀번호 입력" required>
+                    <span>비밀번호가 일치합니다.</span>
+                    <span>비밀번호가 일치하지 않습니다.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 mb-3">
+                    <label for="name">이름</label>
+                    <input id="name" type="text" class="form-control" placeholder="이름을 입력해주세요." required>
+                    <span>이름을 올바르게 작성해주세요.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 mb-3">
+                    <label for="birthday">생년월일</label>
+                    <input type="date" id="birthday" class="form-control" required>
+                    <span>생년월일을 올바르게 작성해주세요.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 mb-3">
+                    <label for="nickName">닉네임</label>
+                    <input type="text" id="nickName" class="form-control" placeholder="닉네임을 입력해주세요." required>
+                    <span>닉네임을 올바르게 작성해주세요.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 mb-3">
+                    <label for="phone">전화번호</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="번호를 입력해주세요." required>
+                    <span>번호를 올바르게 작성해주세요.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 mb-3">
+                    <label for="sample6_postcode">주소</label>
+                    <div class="addressDiv">
+                        <input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호" required>
+                        <input type="button" id="addressBtn" class="btn btn-secondary" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                    </div>
+                    <div class="addressDiv">
+                        <input type="text" name="addr1" id="sample6_address" class="form-control" placeholder="주소">
+                    </div>
+                    <div class="addressDiv">
+                        <input type="text" name="addr2" id="sample6_detailAddress" class="form-control" placeholder="상세주소(선택 입력 가능)">
+                    </div>
+                    <div class="addressDiv">
+                        <input type="text" name="addr3" id="sample6_extraAddress" class="form-control" placeholder="참고항목(선택 입력 가능)">
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-secondary">회원가입</button>
+            <button class="btn btn-secondary">취소하기</button>
+        </form>
+
+    <th:block th:replace="fragments/sidebar/footersidebar.html::footerFragment"/>
 </body>
 </html>
