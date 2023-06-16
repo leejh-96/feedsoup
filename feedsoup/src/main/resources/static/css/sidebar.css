@@ -1,0 +1,44 @@
+*{
+    /* border: 1px solid red; */
+}
+#content_div{
+    height: 900px;
+    overflow-y: auto;
+}
+#sidenav_div{
+    border-right: 1px solid steelblue;
+    background-color: rgb(246, 247, 242);
+}
+#sidenav_top_span{
+    margin: 20px;
+}
+#navi a{
+    text-decoration: none;
+    color: orange;
+    font-size: 1.5em;
+    font-weight: 900;
+    height: 100%;
+    display: block;
+    line-height: 50px;/*줄 간격*/
+}
+#navi a:hover{
+    color: orangered;
+}
+#navi>li>ul a{
+    color: cadetblue;
+}
+#navi>li>ul{
+    list-style-type: none;
+    padding: 0;
+    /* display:none으로 li들을 숨김 */
+    display: none;
+
+}
+#navi>li>a:hover+ul{
+    /* 숨겨진 li들의 부모에 커서가 올라가면 자식들 display를 block 처리 */
+    display: block;
+}
+#navi>li>ul:hover{
+    /* 자식li display를 block 처리  */
+    display: block;
+}
