@@ -3,3 +3,13 @@
     justify-content: center;
     align-items: center;
 }
+#emailValidate,#emailMessage,#passwordMessage,#passwordValidate,
+#passCheckMessage,#passCheckValidate{
+    display: none;
+}
+#emailMessage,#passwordMessage,#passCheckMessage{
+    color: red;
+}
+#emailValidate,#passwordValidate,#passCheckValidate{
+    color: green;
+}
