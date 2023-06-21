@@ -26,10 +26,7 @@ public class EmailConfirmTest {
         
         EmailConfirmDTO emailConfirmDTO = new EmailConfirmDTO();
         emailConfirmDTO.setEmail(email);
-        // 이메일을 매개변수로 받아서 유효한 시간내에 인증받은 기록이 있다면 
-        // 인증메일을 보내지 않고 false를 리턴,
-        // 유효한 시간내에 인증받은 기록이 없다면
-        // 인증메일을 보내고 true를 리턴
+
         boolean message = emailService.findByValidKey(emailConfirmDTO);
 
         assertTrue(message);
@@ -43,10 +40,7 @@ public class EmailConfirmTest {
         EmailConfirmDTO emailConfirmDTO = new EmailConfirmDTO();
         emailConfirmDTO.setEmail(email);
         emailConfirmDTO.setCheckNum("f67afd18-3");
-        // 이메일과 인증번호를 매개변수로 받아서 유효한 시간내에 인증번호를 인증해서 일치한다면
-        // true를 리턴 후 email_status 컬럼을 'Y'로 update,
-        // 유효한 시간이 아니며, 인증번호가 일치하지 않는다면
-        // false를 리턴
+
         boolean message = emailService.findByValidNum(emailConfirmDTO);
 
         assertTrue(message);
