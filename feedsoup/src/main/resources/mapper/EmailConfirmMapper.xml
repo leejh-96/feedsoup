@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feed.feedsoup.repository.EmailConfirmRepository">
+
+    <sql id="selectValid">
+        SELECT email,checkNum,email_status,email_time
+        FROM
+        (SELECT *
+        FROM EMAILCONFIRM
+        WHERE EMAIL = #{emailConfirmDTO.email}
+        ) E
+        WHERE email_time > NOW()
+    </sql>
+
+    <insert id="save" parameterType="EmailConfirmDTO">
+        INSERT INTO EMAILCONFIRM (email,checkNum,email_status,email_time)
+        VALUES(#{emailConfirm.email},#{emailConfirm.checkNum},'N',NOW() + INTERVAL 2 MINUTE)
+    </insert>
+
+    <update id="update" parameterType="EmailConfirmDTO">
+        UPDATE EMAILCONFIRM
+        SET email_status = 'Y'
+        WHERE email = #{emailConfirmDTO.email} and checkNum = #{emailConfirmDTO.checkNum}
+    </update>
+
+    <select id="findByValidKey" parameterType="EmailConfirmDTO" resultType="EmailConfirmDTO">
+        <include refid="selectValid"/>
+    </select>
+
+    <select id="findByValidNum" parameterType="EmailConfirmDTO" resultType="EmailConfirmDTO">
+        SELECT email,checkNum,email_status,email_time
+        FROM
+            (
+            <include refid="selectValid"/>
+            )EMAIL
+        WHERE checkNum = #{emailConfirmDTO.checkNum}
+    </select>
+
+
+</mapper>
