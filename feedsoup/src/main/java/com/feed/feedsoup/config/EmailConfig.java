@@ -61,10 +61,4 @@ public class EmailConfig {
         return prop;
     }
 
-    @Bean
-    public String randomKey(){
-        String uuid = UUID.randomUUID().toString();
-        return uuid.substring(0,10);
-    }
-
 }
