@@ -1,0 +1,42 @@
+<th:block th:replace="fragments/html/htmlHead.html::htmlHeadFragment"/>
+    <title>feedsoup - 로그인</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet">
+<!--<th:block th:replace="fragments/sidebar/headerSideBar.html::headerSideBarFragment"/>-->
+</head>
+<body>
+
+<form th:action="@{/login}" th:object="${loginFormDTO}" method="POST" class="form-inline">
+    <div class="wrap">
+        <div class="login">
+            <h2>Log-in</h2>
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+            </div>
+            <div class="login_id">
+                <h4>E-mail</h4>
+                <input th:field="*{memberId}" th:errorclass="field-error" type="text" id="memberId" name="memberId" placeholder="Email">
+<!--                <input type="checkbox" id="rememberMe" name="rememberMe"> Remember Me?-->
+                <p th:errors="*{memberId}" class="field-error"></p>
+            </div>
+            <div class="login_pw">
+                <h4>Password</h4>
+                <input th:field="*{memberPassword}" th:errorclass="field-error" type="password" id="memberPassword" name="memberPassword" placeholder="Password">
+                <p th:errors="*{memberPassword}" class="field-error"></p>
+            </div>
+            <div class="login_etc">
+                <div class="forgot_pw">
+                    <a href="">아이디찾기</a>
+                    <a href="">비밀번호찾기</a>
+                </div>
+            </div>
+            <div class="submit">
+                <input type="submit" value="Login">
+            </div>
+            <div class="submit">
+                <input type="button" th:onclick="|location.href='@{/main}'|" value="Home">
+            </div>
+        </div>
+    </div>
+</form>
+<!--<th:block th:replace="fragments/sidebar/footerSideBar.html::footerSideBarFragment"/>-->
+<th:block th:replace="fragments/html/htmlFoot.html::htmlFootFragment"/>
