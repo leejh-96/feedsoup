@@ -15,8 +15,10 @@ public class RegisterService {
     private final RegisterRepository registerRepository;
 
     @Transactional
-    public void registerSave(RegisterFormDTO register) {
-
-        registerRepository.save(register);
+    public void save(RegisterFormDTO registerFormDTO) {
+        registerRepository.save(registerFormDTO);
+    }
+    public boolean duplicateNickname(String memberNickname) {
+        return registerRepository.duplicateNickname(memberNickname) != 0 ? false : true;
     }
 }
