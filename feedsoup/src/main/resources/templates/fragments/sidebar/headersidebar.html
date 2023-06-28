@@ -1,14 +1,22 @@
 <html lagn="ko" xmlns:th="http://www.thymeleaf.org">
-    <th:block th:fragment="headerFragment">
+    <th:block th:fragment="headerSideBarFragment">
+        </head>
+        <body>
         <div class="container-fluid text-center">
             <div id="div_wrap" class="row">
                 <!-- side nav -->
                 <div id="sidenav_div" class="col-2 ">
                     <div id="sidenav_top_span">
                         <!-- 비로그인 -->
+
+<!--                        th:if="${status eq null or not status}"-->
                         <span>
-                            <a class="btn btn-outline-secondary" href="#">로그인</a>
-                            <a class="btn btn-outline-secondary" href="#">회원가입</a>
+                            <a th:if="${session.loginMember == null}" th:href="@{/loginForm}" class="btn btn-outline-secondary">로그인</a>
+                            <a th:if="${session.loginMember == null}" th:href="@{/register/form}" class="btn btn-outline-secondary">회원가입</a>
+                            <form th:if="${session.loginMember != null}" th:action="@{/logout}" th:method="post">
+                                <button class="btn btn-outline-secondary">로그아웃</button>
+                            </form>
+<!--                            <span th:if="${session.loginMember != null}" th:text="${session.loginMember}님 환영합니다." class="btn btn-outline-secondary" href="#"></span>-->
                         </span>
                         <!-- 회원 로그인 -->
                         <!-- <span>
@@ -24,7 +32,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">마이페이지</a>
                             <ul>
-                                <li><a href="">회원정보수정</a></li>
+                                <li><a th:href="@{/}" >회원정보수정</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
