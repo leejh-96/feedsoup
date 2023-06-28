@@ -1,78 +1,77 @@
 package com.feed.feedsoup.service;
 
 import com.feed.feedsoup.dto.EmailConfirmDTO;
-import com.feed.feedsoup.repository.EmailConfirmRepository;
+import com.feed.feedsoup.dto.RegisterFormDTO;
+import com.feed.feedsoup.repository.RegisterRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.UUID;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailConfirmService {
 
-    private final JavaMailSender javaMailSender;
+    private final RegisterRepository registerRepository;
 
-    private final EmailConfirmRepository emailRepository;
+    private final JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private String sendUserEmail;
 
-    public boolean findByValidKey(EmailConfirmDTO emailConfirmDTO){
-        EmailConfirmDTO valid = emailRepository.findByValidKey(emailConfirmDTO);
-        if (valid == null){
-            return this.sendMail(emailConfirmDTO.getEmail());
+    public EmailConfirmDTO sendMail(EmailConfirmDTO emailConfirmDTO) throws MailException {
+
+        emailConfirmDTO.setCheckNum(this.randomKey());// 메일 인증번호
+        emailConfirmDTO.setEmailStatus("N");
+
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+
+        simpleMailMessage.setTo(emailConfirmDTO.getMemberId());// 보내는 대상
+        simpleMailMessage.setSubject("feedsoup 회원가입 이메일 인증 코드");// 메일 제목
+        simpleMailMessage.setFrom(sendUserEmail);// 보내는 사람의 메일 주소
+        simpleMailMessage.setText("인증번호 : " + emailConfirmDTO.getCheckNum());// 내용
+
+//      메일 발송
+        javaMailSender.send(simpleMailMessage);
+
+        return emailConfirmDTO;
+    }
+
+    public boolean findByEmailAndValidNum(EmailConfirmDTO sessionDTO, EmailConfirmDTO emailConfirmDTO, HttpSession httpSession) {
+        if (emailConfirmDTO.getMemberId().equals(sessionDTO.getMemberId())){
+            if (emailConfirmDTO.getCheckNum().equals(sessionDTO.getCheckNum())){
+                sessionDTO.setEmailStatus("Y");
+                this.createSession(sessionDTO,httpSession);
+                return true;
+            }
+        }
+        sessionDTO.setEmailStatus("N");
+        this.createSession(sessionDTO,httpSession);
+        return false;
+    }
+
+    public boolean findByEmailAndValidNum(EmailConfirmDTO sessionEmailConfirmDTO, RegisterFormDTO registerFormDTO) {
+        if (sessionEmailConfirmDTO.getMemberId().equals(registerFormDTO.getMemberId())){
+            if (sessionEmailConfirmDTO.getCheckNum().equals(registerFormDTO.getCheckNum())){
+                return true;
+            }
         }
         return false;
     }
-    public boolean findByValidNum(EmailConfirmDTO emailConfirmDTO) {
-        EmailConfirmDTO valid = emailRepository.findByValidNum(emailConfirmDTO);
-        if (valid == null){
-            return false;
-        }
-        this.update(emailConfirmDTO);
-        return true;
+
+    public void createSession(EmailConfirmDTO emailConfirmDTO, HttpSession httpSession) {
+        httpSession.setMaxInactiveInterval(20);
+        httpSession.setAttribute("emailConfirm",emailConfirmDTO);
     }
 
-//  메일을 보내는 대상, 메일 제목, 보내는 사람의 메일 주소, 메일 제목, 메일 내용, 메일 인증번호 설정
-    public boolean sendMail(String toUserEmail) {
-
-        String checkNum = this.randomKey();// 메일 인증번호
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-
-        simpleMailMessage.setTo(toUserEmail);// 보내는 대상
-        simpleMailMessage.setSubject("feedsoup 회원가입 이메일 인증 코드");// 메일 제목
-        simpleMailMessage.setFrom(sendUserEmail);// 보내는 사람의 메일 주소
-        simpleMailMessage.setText("인증번호 : " + checkNum);// 내용
-
-        log.info("randomKey : {}", checkNum);
-
-        try {
-//          메일 발송
-            javaMailSender.send(simpleMailMessage);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return false;
-        }
-//      DB에 이메일과 인증번호를 임시저장
-        this.save(toUserEmail, checkNum);
-        return true;
-    }
-
-    @Transactional
-    public void update(EmailConfirmDTO emailConfirmDTO){
-        emailRepository.update(emailConfirmDTO);
-    }
-    @Transactional
-    public void save(String toUserEmail, String checkNum) {
-        emailRepository.save(new EmailConfirmDTO(toUserEmail, checkNum));
+    public boolean duplicateEmail(String memberId) {
+        return registerRepository.duplicateEmail(memberId) != 0 ? false : true;
     }
 
     //  UUID 사용해서 10자리의 인증번호 추출
@@ -80,6 +79,5 @@ public class EmailConfirmService {
         String uuid = UUID.randomUUID().toString();
         return uuid.substring(0, 10);
     }
-
 
 }
