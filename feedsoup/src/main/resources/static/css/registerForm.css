@@ -13,3 +13,7 @@
 #emailValidate,#passwordValidate,#passCheckValidate{
     color: green;
 }
+.field-error{
+    border-color: #dc3545;
+    color: #dc3545;
+}
