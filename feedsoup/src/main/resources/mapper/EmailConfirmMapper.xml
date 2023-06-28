@@ -7,10 +7,10 @@
     <sql id="selectValid">
         SELECT email,checkNum,email_status,email_time
         FROM
-        (SELECT *
-        FROM EMAILCONFIRM
-        WHERE EMAIL = #{emailConfirmDTO.email}
-        ) E
+            (SELECT *
+             FROM EMAILCONFIRM
+             WHERE EMAIL = #{emailConfirmDTO.email}
+            ) E
         WHERE email_time > NOW()
     </sql>
 
@@ -31,10 +31,7 @@
 
     <select id="findByValidNum" parameterType="EmailConfirmDTO" resultType="EmailConfirmDTO">
         SELECT email,checkNum,email_status,email_time
-        FROM
-            (
-            <include refid="selectValid"/>
-            )EMAIL
+        FROM(<include refid="selectValid"/>)EMAIL
         WHERE checkNum = #{emailConfirmDTO.checkNum}
     </select>
 
