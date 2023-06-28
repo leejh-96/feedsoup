@@ -4,11 +4,21 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.feed.feedsoup.repository.RegisterRepository">
 
+    <sql id="selectMemberCount">
+        SELECT count(*) FROM member
+    </sql>
+
     <insert id="save" parameterType="RegisterFormDTO">
-        INSERT INTO MEMBER (m_type,m_status,m_id,m_password,m_name,m_birthdate,m_nickname,m_phone,m_address,m_date,m_update)
-        VALUES('MEMBER','Y',#{register.memberId},#{register.memberPassword},#{register.memberName},#{register.memberBirthdate},
-        #{register.memberNickname},#{register.memberPhone},#{register.memberAddress},'DEFAULT',NULL)
+        INSERT INTO member (member_type,member_status,member_id,member_password,member_name,member_birthdate,member_nickname,member_phone,member_address,member_date,member_update)
+        VALUES('MEMBER','Y',#{memberId},#{memberPassword},#{memberName},#{memberBirthdate},#{memberNickname},#{memberPhone},#{memberAddress},DEFAULT,NULL)
     </insert>
 
+    <select id="duplicateEmail" parameterType="string" resultType="_int">
+        <include refid="selectMemberCount"/> WHERE member_id = #{memberId}
+    </select>
+
+    <select id="duplicateNickname" parameterType="string" resultType="_int">
+        <include refid="selectMemberCount"/> WHERE member_nickname = #{memberNickname}
+    </select>
 
 </mapper>
