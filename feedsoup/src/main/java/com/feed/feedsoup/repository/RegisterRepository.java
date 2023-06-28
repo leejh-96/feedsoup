@@ -8,5 +8,9 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface RegisterRepository {
-    void save(RegisterFormDTO register);
+    void save(RegisterFormDTO registerFormDTO);
+
+    int duplicateEmail(String memberId);
+
+    int duplicateNickname(String memberNickname);
 }
