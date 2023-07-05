@@ -1,6 +1,5 @@
 package com.feed.feedsoup.dbtest;
 
-import com.feed.feedsoup.message.ValidMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
