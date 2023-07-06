@@ -1,0 +1,66 @@
+<th:block th:replace="fragments/html/htmlHead.html::htmlHeadFragment"/>
+<title>feedsoup - boardForm</title>
+<link th:href="@{/css/boardForm.css}" rel="stylesheet">
+<th:block th:replace="fragments/sidebar/headerSideBar.html::headerSideBarFragment"/>
+
+<h1>게시글 작성</h1>
+<div class="container">
+    <form action="/board/form" method="post" class="form-inline" enctype="multipart/form-data" >
+        <table class="table table-hover">
+            <tbody id="file-attachment">
+                <tr>
+                    <th>게시판카테고리</th>
+                    <td colspan="5">
+                        <select id="board-category-select" required>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>옵션선택</th>
+                    <td colspan="5">
+                        <select id="board-option-select" required>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>제목</th>
+                    <td colspan="5">
+                        <input type="text" name="boardTitle" placeholder="제목을 입력해주세요.(100자 이내)" required class="form-control form-control-sm">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="align-middle">내용</th>
+                    <td colspan="5">
+                        <textarea name="boardContent" class="form-control" rows="5" placeholder="내용을 입력해주세요.(1000자 이내)" required></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="align-middle">파일 추가</th>
+                    <th colspan="5">
+                        *첨부파일을 추가하실려면 버튼을 클릭해주세요*
+                        <button type="button" id="option-add-btn" class="btn btn-warning">추가</button>
+                        <button type="button" id="option-delete-btn" class="btn btn-warning">삭제</button>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="align-middle">첨부파일</th>
+                    <td colspan="5" class="align-middle input-group">
+                        <input name="files" class="form-control" type="file">
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="6">
+                        <button type="submit" class="btn btn-warning" >등록하기</button>
+                        <button type="reset" class="btn btn-warning" >취소하기</button>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+
+<th:block th:replace="fragments/sidebar/footerSideBar.html::footerSideBarFragment"/>
+<script type="text/javascript" th:src="@{/js/boardForm.js}"></script>
+<th:block th:replace="fragments/html/htmlFoot.html::htmlFootFragment"/>
