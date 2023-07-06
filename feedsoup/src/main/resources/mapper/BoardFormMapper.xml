@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feed.feedsoup.repository.BoardFormRepository">
+    <select id="findByBoardCategory" resultType="BoardCategoryDTO">
+        SELECT * FROM BOARDCATEGORY
+    </select>
+    <select id="findByBoardOption" parameterType="_int" resultType="BoardOptionDTO">
+        SELECT * FROM BOARDOPTION WHERE board_category_no = #{boardCategoryNo}
+    </select>
+</mapper>
