@@ -49,20 +49,18 @@ public class RegisterController {
             bindingResult.reject("mismatch");
             return "register/registerForm";
         }
-////      폼 바인딩 객체의 유효성 검증
+//      폼 바인딩 객체의 유효성 검증
         if (bindingResult.hasErrors()){
             return "register/registerForm";
         }
-////      닉네임 중복검사
+//     닉네임 중복검사
         if (!registerService.duplicateNickname(registerFormDTO.getMemberNickname())){
             bindingResult.reject("duplicateNickname");
             return "register/registerForm";
         }
-//
-////      회원가입 서비스 호출하기 && 기존 세션 삭제 후 새로운 세션 생성하기
+//      회원가입 서비스 호출하기 && 기존 세션 삭제 후 새로운 세션 생성하기
         registerService.save(registerFormDTO);
         httpSession.invalidate();
-//        httpSession.setAttribute("loginMember",registerFormDTO);
         redirectAttributes.addFlashAttribute("status",true);
 
         return "redirect:/register/form";
