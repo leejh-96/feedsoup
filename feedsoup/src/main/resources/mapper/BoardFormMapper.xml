@@ -9,4 +9,18 @@
     <select id="findByBoardOption" parameterType="_int" resultType="BoardOptionDTO">
         SELECT * FROM BOARDOPTION WHERE board_category_no = #{boardCategoryNo}
     </select>
+    <insert id="saveBoard" parameterType="BoardFormDTO" useGeneratedKeys="true">
+        INSERT INTO BOARD
+        (board_option_no,member_no,board_status,board_title,board_content,board_date,board_update,board_hit)
+        VALUES
+        (#{boardOptionNo},#{memberNo},'Y',#{boardTitle},#{boardContent},DEFAULT,NULL,DEFAULT)
+    </insert>
+    <insert id="saveFile" parameterType="list">
+        INSERT INTO FILE
+        (file_original_name,file_modify_name,file_date,board_no)
+        VALUES
+        <foreach collection="list" item="file" separator=",">
+        (#{file.fileOriginalName},#{file.fileModifyName},DEFAULT,#{file.boardNo})
+        </foreach>
+    </insert>
 </mapper>
