@@ -14,9 +14,9 @@ function findByBoardCategory(){
         success: function (obj){
             JSON.stringify(obj);
             $('#board-category-select').append('<option value="0" selected>------------선택------------</option>');
-            $('#board-option-select').append('<option selected>------------선택------------</option>');
+            $('#board-option-select').append('<option value="0" selected>------------선택------------</option>');
             for (let i = 0; i < obj.length; i++) {
-                $('#board-category-select').append('<option value="' + obj[i].boardCategoryNo + '"name="boardCategoryNo">' + obj[i].boardCategoryName + '</option>');
+                $('#board-category-select').append('<option value="' + obj[i].boardCategoryNo + '">' + obj[i].boardCategoryName + '</option>');
             }
         },
         error: function (errors){
@@ -53,7 +53,7 @@ function findByBoardOption(value){
 
 function optionSettings(){
     $('#board-option-select').empty();
-    $('#board-option-select').append('<option selected>------------선택------------</option>');
+    $('#board-option-select').append('<option value="0" selected>------------선택------------</option>');
 }
 let maxFileAttachment = 10;//첨부파일 최대 갯수
 let fileFieldCount = 1;//초기 첨부파일 갯수
