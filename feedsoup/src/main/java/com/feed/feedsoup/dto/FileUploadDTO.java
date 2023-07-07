@@ -9,13 +9,14 @@ import lombok.ToString;
 @ToString
 public class FileUploadDTO {
 
-    private String originalFileName;
-    private String renameFileName;
+    private int boardNo;
+    private String fileOriginalName;
+    private String fileModifyName;
 
     public FileUploadDTO(){}
 
-    public FileUploadDTO(String originalFileName, String renameFileName){
-        this.originalFileName = originalFileName;
-        this.renameFileName = renameFileName;
+    public FileUploadDTO(String fileOriginalName, String fileModifyName){
+        this.fileOriginalName = fileOriginalName;
+        this.fileModifyName = fileModifyName;
     }
 }
