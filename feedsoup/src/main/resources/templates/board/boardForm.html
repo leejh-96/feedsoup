@@ -5,33 +5,40 @@
 
 <h1>게시글 작성</h1>
 <div class="container">
-    <form action="/board/form" method="post" class="form-inline" enctype="multipart/form-data" >
+    <form action="/board/form" method="post" th:object="${boardFormDTO}" class="form-inline" enctype="multipart/form-data" >
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+        </div>
         <table class="table table-hover">
             <tbody id="file-attachment">
                 <tr>
                     <th>게시판카테고리</th>
                     <td colspan="5">
-                        <select id="board-category-select" required>
+                        <select th:field="*{boardCategoryNo}" th:errorclass="field" id="board-category-select" name="boardCategoryNo" required>
                         </select>
+                        <p class="field-error" th:errors="*{boardCategoryNo}"></p>
                     </td>
                 </tr>
                 <tr>
                     <th>옵션선택</th>
                     <td colspan="5">
-                        <select id="board-option-select" required>
+                        <select th:field="*{boardOptionNo}" th:errorclass="field" id="board-option-select" name="boardOptionNo" required>
                         </select>
+                        <p class="field-error" th:errors="*{boardOptionNo}"></p>
                     </td>
                 </tr>
                 <tr>
                     <th>제목</th>
                     <td colspan="5">
-                        <input type="text" name="boardTitle" placeholder="제목을 입력해주세요.(100자 이내)" required class="form-control form-control-sm">
+                        <input th:field="*{boardTitle}" th:errorclass="field" type="text" name="boardTitle" placeholder="제목을 입력해주세요.(100자 이내)" required class="form-control form-control-sm">
+                        <p class="field-error" th:errors="*{boardTitle}"></p>
                     </td>
                 </tr>
                 <tr>
                     <th class="align-middle">내용</th>
                     <td colspan="5">
-                        <textarea name="boardContent" class="form-control" rows="5" placeholder="내용을 입력해주세요.(1000자 이내)" required></textarea>
+                        <textarea th:field="*{boardContent}" th:errorclass="field" name="boardContent" class="form-control" rows="5" placeholder="내용을 입력해주세요.(1000자 이내)" required></textarea>
+                        <p class="field-error" th:errors="*{boardContent}"></p>
                     </td>
                 </tr>
                 <tr>
