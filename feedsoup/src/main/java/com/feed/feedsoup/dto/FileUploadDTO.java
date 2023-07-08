@@ -19,4 +19,10 @@ public class FileUploadDTO {
         this.fileOriginalName = fileOriginalName;
         this.fileModifyName = fileModifyName;
     }
+
+    public FileUploadDTO(int boardNo, String fileOriginalName, String fileModifyName){
+        this.boardNo = boardNo;
+        this.fileOriginalName = fileOriginalName;
+        this.fileModifyName = fileModifyName;
+    }
 }
