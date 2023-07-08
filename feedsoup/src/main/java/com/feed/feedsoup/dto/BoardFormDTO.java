@@ -13,6 +13,8 @@ public class BoardFormDTO {
 
    private int memberNo;
 
+   private int boardNo;
+
    @Positive
    private int boardCategoryNo;
 
