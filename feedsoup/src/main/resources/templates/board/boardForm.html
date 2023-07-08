@@ -15,6 +15,11 @@
                     <th>게시판카테고리</th>
                     <td colspan="5">
                         <select th:field="*{boardCategoryNo}" th:errorclass="field" id="board-category-select" name="boardCategoryNo" required>
+                            <option value="0" selected>------------선택------------</option>
+                            <option th:each="val : ${boardCategorylist}"
+                                    th:value="${val?.boardCategoryNo}"
+                                    th:utext="${val?.boardCategoryName}">
+                            </option>
                         </select>
                         <p class="field-error" th:errors="*{boardCategoryNo}"></p>
                     </td>
