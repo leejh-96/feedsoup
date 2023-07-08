@@ -16,7 +16,7 @@ public interface BoardFormRepository {
 
     List<BoardOptionDTO> findByBoardOption(int boardCategoryNo);
 
-    int saveBoard(BoardFormDTO boardFormDTO);
+    void saveBoard(BoardFormDTO boardFormDTO);
 
     void saveFile(List<FileUploadDTO> fileUploadDTOList);
 }
