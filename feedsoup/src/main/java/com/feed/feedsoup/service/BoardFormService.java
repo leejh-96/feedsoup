@@ -23,6 +23,7 @@ public class BoardFormService {
     private final FileService fileService;
 
     private final BoardFormRepository boardFormRepository;
+
     public List<BoardCategoryDTO> findByBoardCategory() {
         return boardFormRepository.findByBoardCategory();
     }
