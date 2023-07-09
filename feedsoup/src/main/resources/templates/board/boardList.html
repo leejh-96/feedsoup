@@ -1,15 +1,36 @@
 <th:block th:replace="fragments/html/htmlHead.html::htmlHeadFragment"/>
-<title>feedsoup - boardForm</title>
+<title>feedsoup - boardList</title>
+<link th:href="@{/css/search.css}" rel="stylesheet">
 <th:block th:replace="fragments/sidebar/headerSideBar.html::headerSideBarFragment"/>
+<th:block th:replace="fragments/search/search.html::searchFragment"/>
 
+<table class="table table-striped table-hover">
+    <thead class="thead">
+        <tr>
+            <th>카테고리</th>
+            <th>옵션</th>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>조회수</th>
+            <th>등록날짜</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+    <tfoot>
 
-
-<h1>게시글 리스트</h1>
-
-<a th:href="@{/board/form}" class="btn btn-warning">글 작성하기</a>
-
-
-
+    </tfoot>
+</table>
 
 <th:block th:replace="fragments/sidebar/footerSideBar.html::footerSideBarFragment"/>
 <th:block th:replace="fragments/html/htmlFoot.html::htmlFootFragment"/>
