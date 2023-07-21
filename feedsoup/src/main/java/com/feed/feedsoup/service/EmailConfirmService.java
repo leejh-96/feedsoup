@@ -66,7 +66,7 @@ public class EmailConfirmService {
     }
 
     public void createSession(EmailConfirmDTO emailConfirmDTO, HttpSession httpSession) {
-        httpSession.setMaxInactiveInterval(20);
+        httpSession.setMaxInactiveInterval(300);
         httpSession.setAttribute("emailConfirm",emailConfirmDTO);
     }
 
