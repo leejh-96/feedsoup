@@ -16,9 +16,11 @@ public class BoardFormDTO {
    private int boardNo;
 
    @Positive
+   @Max(value = 9)
    private int boardCategoryNo;
 
    @Positive
+   @Max(value = 9)
    private int boardOptionNo;
 
    @Length(min = 10, max = 100)
