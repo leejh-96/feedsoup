@@ -9,8 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.*;
 import java.util.Date;
 
-@Getter
-@Setter
+@Getter@Setter
 @ToString
 public class MemberDTO {
 
