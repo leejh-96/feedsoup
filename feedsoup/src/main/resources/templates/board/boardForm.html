@@ -5,7 +5,7 @@
 
 <h1>게시글 작성</h1>
 <div class="container">
-    <form action="/board/form" method="post" th:object="${boardFormDTO}" class="form-inline" enctype="multipart/form-data" >
+    <form action="/board/form" th:method="post" th:object="${boardFormDTO}" class="form-inline" enctype="multipart/form-data" >
         <div th:if="${#fields.hasGlobalErrors()}">
             <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
         </div>
@@ -14,7 +14,7 @@
                 <tr>
                     <th>게시판카테고리</th>
                     <td colspan="5">
-                        <select th:field="*{boardCategoryNo}" th:errorclass="field" id="board-category-select" name="boardCategoryNo" required>
+                        <select th:errorclass="field" id="board-category-select" name="boardCategoryNo" required>
                             <option value="0" selected>------------선택------------</option>
                             <option th:each="val : ${boardCategorylist}"
                                     th:value="${val?.boardCategoryNo}"
@@ -27,7 +27,7 @@
                 <tr>
                     <th>옵션선택</th>
                     <td colspan="5">
-                        <select th:field="*{boardOptionNo}" th:errorclass="field" id="board-option-select" name="boardOptionNo" required>
+                        <select th:errorclass="field" id="board-option-select" name="boardOptionNo" required>
                         </select>
                         <p class="field-error" th:errors="*{boardOptionNo}"></p>
                     </td>
@@ -47,17 +47,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="align-middle">파일 추가</th>
-                    <th colspan="5">
-                        *첨부파일을 추가하실려면 버튼을 클릭해주세요*
-                        <button type="button" id="option-add-btn" class="btn btn-warning">추가</button>
-                        <button type="button" id="option-delete-btn" class="btn btn-warning">삭제</button>
-                    </th>
-                </tr>
-                <tr>
                     <th class="align-middle">첨부파일</th>
                     <td colspan="5" class="align-middle input-group">
-                        <input name="files" class="form-control" type="file">
+                        <input name="files" class="form-control" type="file" multiple="multiple">
                     </td>
                 </tr>
             </tbody>
@@ -74,5 +66,6 @@
 </div>
 
 <th:block th:replace="fragments/sidebar/footerSideBar.html::footerSideBarFragment"/>
-<script type="text/javascript" th:src="@{/js/boardForm.js}"></script>
+<script type="text/javascript" th:src="@{/js/boardCategoryAndOption.js}"></script>
+<script type="text/javascript" th:src="@{/js/boardFormFiles.js}"></script>
 <th:block th:replace="fragments/html/htmlFoot.html::htmlFootFragment"/>
