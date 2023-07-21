@@ -28,7 +28,6 @@ public class RegisterFormDTO {
     @NotBlank
     private String memberName;
 
-//    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     private Date memberBirthdate;
