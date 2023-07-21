@@ -1,0 +1,8 @@
+.field-error{
+    border-color: #dc3545;
+    color: #dc3545;
+}
+.field{
+    border-color: blue;
+    color: blue;
+}

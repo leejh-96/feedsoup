@@ -1,0 +1,12 @@
+#search-list-div-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#search-list-form{
+    width: 75%;
+}
+.field-error{
+    color: red;
+}
+

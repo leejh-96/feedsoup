@@ -1,0 +1,20 @@
+.row {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.border-none{
+    border: none;
+}
+#reply-div{
+    table-layout: fixed;
+}
+#reply-p{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#reply-content-div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+}
