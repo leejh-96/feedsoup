@@ -2,12 +2,25 @@ package com.feed.feedsoup.config;
 
 import com.feed.feedsoup.interceptor.LogInterceptor;
 import com.feed.feedsoup.interceptor.LoginCheckInterceptor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+//    @Value("${file.dir}")
+//    private String fileDir = "C:/Users/LG/feedsoup/file";
+
+    private String resourceLocation = "file:///C:/Users/LG/feedsoup/file/";
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/file/**")
+                .addResourceLocations(resourceLocation);
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -19,7 +32,9 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/main","/register/form","/register/save","/loginForm","/login","/css/**","/error");
+                .excludePathPatterns("/register/form","/register/save","/loginForm","/login","/css/**",
+                                     "/error","/sendMail","/js/**","/validNum");
+
     }
 
 
