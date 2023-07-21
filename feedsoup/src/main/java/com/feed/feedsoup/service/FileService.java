@@ -24,34 +24,9 @@ public class FileService {
         return this.fileDir + renameFileName;
     }
 
-//  다중 파일의 경우 list 순회를 통해 파일의 존재 여부를 체크함
-//  존재한다면 false, 존재하지 않는다면 true 리턴
-    public boolean filePresenceCheck(List<MultipartFile> multipartFiles) {
-        for (int i = 0; i < multipartFiles.size();i++){
-            log.info("isEmpty : {}",multipartFiles.get(i).isEmpty());
-            if (multipartFiles.get(i).isEmpty()==false){
-                return false;
-            }
-        }
-        return true;
-    }
-
-//  비어있는 파일 list는 걸러내고, 비어있지 않은 파일은 FileUploadDTO객체(번호,원본파일명,변경된 파일명)를 list로 리턴
-    public List<FileUploadDTO> fileCheckAndNewSettings(int primaryKey, List<MultipartFile> multipartFiles){
-        List<FileUploadDTO> files = new ArrayList<>();
-        for (MultipartFile multipartFile : multipartFiles){
-            if (!multipartFile.isEmpty()){
-                String fileModifyName = this.createRenamedFileName(multipartFile.getOriginalFilename());
-                String fileOriginalName = multipartFile.getOriginalFilename();
-                files.add(new FileUploadDTO(primaryKey,fileOriginalName,fileModifyName));
-            }
-        }
-        return files;
-    }
-
 //  UUID 사용해서 서버에서 변경된 파일이름을 리턴
     public String createRenamedFileName(String fileOriginalName){
-        return this.randomName() + this.extractFileExtension(fileOriginalName);
+        return this.randomName() + "." + this.extractFileExtension(fileOriginalName);
     }
 
     public String randomName(){
@@ -65,25 +40,46 @@ public class FileService {
     }
 
 //  단일 파일 절대경로에 저장
-    public void singleFile(MultipartFile file) throws IOException {
+    public FileUploadDTO singleFile(MultipartFile file,int boardNo) throws IOException {
         if (!file.isEmpty()){
-            String fileOriginalName = file.getOriginalFilename();
-            String fileModifyName = this.createRenamedFileName(fileOriginalName);
-            file.transferTo(new File(this.getFullPath(fileModifyName)));
-//            throw new IOException("file IOException");
+            String originalFilename = file.getOriginalFilename();
+            String renamedFileName = this.createRenamedFileName(originalFilename);
+            log.info("fileModifyName : {}",renamedFileName);
+            file.transferTo(new File(this.getFullPath(renamedFileName)));
+            return new FileUploadDTO(boardNo,originalFilename,renamedFileName);
         }
+        return null;
     }
 
 //  다중 파일 업로드시에 내부에 singleFile() 호출을 통해 절대경로에 파일을 저장
-    public void multipleFiles(List<MultipartFile> multipartFiles) throws IOException {
+    public List<FileUploadDTO> multipleFiles(List<MultipartFile> multipartFiles, int boardNo) throws IOException {
+        List<FileUploadDTO> fileUploadList = new ArrayList<>();
         if (!multipartFiles.isEmpty()){
             for (MultipartFile multipartFile : multipartFiles){
-                if (!multipartFile.isEmpty()){
-                    log.info("multipartFile : {}",multipartFile.getOriginalFilename());
-                    this.singleFile(multipartFile);
-                }
+                String originalFilename = multipartFile.getOriginalFilename();
+                log.info("OriginalFilename : {}",originalFilename);
+                fileUploadList.add(this.singleFile(multipartFile,boardNo));
+//                throw new IOException("No files found.");
             }
+        }
+        return fileUploadList;
+    }
+
+    public void deleteFile(String fileModifyName) {
+        File file = new File(fileDir + fileModifyName);
+
+        if (file.exists()){
+            file.delete();
         }
     }
 
+    public boolean filesEmptyCheck(List<MultipartFile> multipartFiles) {
+        for (int i = 0; i < multipartFiles.size();i++){
+            log.info("isEmpty : {}",multipartFiles.get(i).isEmpty());
+            if (multipartFiles.get(i).isEmpty()==false){
+                return false;
+            }
+        }
+        return true;
+    }
 }
