@@ -7,46 +7,24 @@
                 <!-- side nav -->
                 <div id="sidenav_div" class="col-2 ">
                     <div id="sidenav_top_span">
-                        <!-- 비로그인 -->
-
-<!--                        th:if="${status eq null or not status}"-->
-                        <span>
+                        <p>
                             <a th:if="${session.loginMember == null}" th:href="@{/loginForm}" class="btn btn-outline-secondary">로그인</a>
                             <a th:if="${session.loginMember == null}" th:href="@{/register/form}" class="btn btn-outline-secondary">회원가입</a>
+
+                            <p th:if="${session.loginMember != null}" th:text="${session.loginMember.memberName}+'님 환영합니다.'"></p>
                             <form th:if="${session.loginMember != null}" th:action="@{/logout}" th:method="post">
                                 <button class="btn btn-outline-secondary">로그아웃</button>
                             </form>
-<!--                            <span th:if="${session.loginMember != null}" th:text="${session.loginMember}님 환영합니다." class="btn btn-outline-secondary" href="#"></span>-->
-                        </span>
-                        <!-- 회원 로그인 -->
-                        <!-- <span>
-                            님 환영합니다.
-                        </span>회원 로그인 -->
-                        <!-- 관리자 로그인 -->
-                        <!-- <span>
-                            관리자님 환영합니다.
-                        </span>관리자 로그인 -->
+                        </p>
+
                     </div>
 
                     <ul id="navi" class="nav flex-column ">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">마이페이지</a>
-                            <ul>
-                                <li><a th:href="@{/}" >회원정보수정</a></li>
-                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/board/list}">커뮤니티게시판</a>
-                            <ul>
-                                <li><a href="">공지사항</a></li>
-                                <li><a href="">feedsoup</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
+                            <a th:href="@{/board(page=${1})}" class="nav-link">커뮤니티게시판</a>
                         </li>
                     </ul>
                 </div> <!-- side nav -->
