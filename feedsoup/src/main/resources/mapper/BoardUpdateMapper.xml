@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feed.feedsoup.repository.BoardUpdateRepository">
+
+<!--    <resultMap id="findByBoardResultMap" type="BoardUpdateFormDTO">-->
+<!--        <id property="boardNo" column="board_no"/>-->
+<!--        <collection property="files" column="board_no" select="findByFileWithBoard" javaType="arraylist"/>-->
+<!--    </resultMap>-->
+
+    <select id="findByBoard" parameterType="_int" resultType="BoardUpdateFormDTO">
+        SELECT  B.board_no,
+                M.member_no,
+                M.member_nickname,
+                B.board_date,
+                B.board_update,
+                B.board_title,
+                B.board_content,
+                B.board_hit
+        FROM BOARD B
+        INNER JOIN MEMBER M ON (B.member_no = M.member_no)
+        WHERE board_no = #{boardNo} AND board_status = 'Y' AND M.member_status = 'Y'
+    </select>
+
+<!--    <select id="findByFileWithBoard" resultType="FileDTO">-->
+<!--        SELECT *-->
+<!--        FROM FILE-->
+<!--        WHERE board_no = #{boardNo}-->
+<!--    </select>-->
+
+    <select id="findByFile" resultType="FileDTO">
+        SELECT *
+        FROM FILE
+        WHERE board_no = #{boardNo} AND file_no = #{fileNo}
+    </select>
+
+    <delete id="deleteFile">
+        DELETE FROM FILE
+        WHERE board_no = #{boardNo} AND file_no = #{fileNo}
+    </delete>
+
+    <select id="findByFileList" parameterType="_int" resultType="FileDTO">
+        SELECT *
+        FROM FILE
+        WHERE board_no = #{boardNo}
+    </select>
+
+    <update id="updateBoard" parameterType="BoardUpdateFormDTO">
+        UPDATE BOARD
+        SET board_title = #{boardTitle}, board_content = #{boardContent}
+        WHERE board_no = #{boardNo}
+    </update>
+
+    <insert id="saveFile" parameterType="list">
+        INSERT INTO FILE
+        (file_original_name,file_modify_name,file_date,board_no)
+        VALUES
+        <foreach collection="list" item="file" separator=",">
+            <if test="file != null">
+                (#{file.fileOriginalName},#{file.fileModifyName},DEFAULT,#{file.boardNo})
+            </if>
+        </foreach>
+    </insert>
+
+</mapper>
