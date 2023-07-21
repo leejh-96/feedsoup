@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feed.feedsoup.repository.BoardRepository">
+
+    <sql id="duplicatedBoardListSql">
+        FROM BOARD B
+        INNER JOIN BOARDOPTION BP ON (B.board_option_no = BP.board_option_no)
+        INNER JOIN MEMBER M ON (B.member_no = M.member_no)
+        WHERE B.board_status = 'Y' AND M.member_status = 'Y'
+        <if test="searchDTO.boardCategoryNo != null">
+            AND BP.board_category_no = #{searchDTO.boardCategoryNo}
+        </if>
+        <if test="searchDTO.searchCondition != null">
+            AND CONCAT(BP.board_option_type, B.board_title, M.member_nickname, DATE_FORMAT(B.board_date, '%Y-%m-%d'))
+            LIKE CONCAT('%', #{searchDTO.searchCondition}, '%')
+        </if>
+    </sql>
+
+    <resultMap id="findByBoardResultMap" type="BoardDetailDTO">
+        <id property="boardNo" column="board_no"/>
+        <collection property="files" column="board_no" select="findByFile" javaType="arraylist"/>
+    </resultMap>
+
+    <select id="findByBoardCategory" resultType="BoardCategoryDTO">
+        SELECT *
+        FROM BOARDCATEGORY
+    </select>
+
+    <select id="findByBoardCount" fetchSize="1000" parameterType="searchDTO" resultType="_int">
+        SELECT COUNT(*)
+        <include refid="duplicatedBoardListSql"/>
+    </select>
+
+    <select id="findByBoardList" fetchSize="1000" resultType="BoardListDTO">
+        SELECT  row_number() OVER(ORDER BY B.board_no DESC) AS num,
+                BP.board_option_type,
+                B.board_no,
+                B.board_title,
+                M.member_nickname,
+                B.board_hit,
+                B.board_date
+        <include refid="duplicatedBoardListSql"/>
+        ORDER BY B.board_date DESC
+        LIMIT #{offset},#{limit}
+    </select>
+
+    <update id="updateHit" parameterType="_int">
+        UPDATE BOARD
+        SET board_hit = board_hit + 1
+        WHERE board_no = #{boardNo}
+    </update>
+
+    <select id="findByBoard" parameterType="_int" resultMap="findByBoardResultMap">
+        SELECT  M.member_nickname,
+                B.*
+        FROM BOARD B
+        INNER JOIN MEMBER M ON (B.member_no = M.member_no)
+        WHERE board_no = #{boardNo} AND board_status = 'Y' AND M.member_status = 'Y'
+    </select>
+
+    <select id="findByFile" parameterType="_int" resultType="FileDTO">
+        SELECT *
+        FROM FILE
+        WHERE board_no = #{boardNo}
+    </select>
+
+    <select id="findByReplyList" fetchSize="1000" parameterType="_int" resultType="ReplyDetailDTO">
+        SELECT  row_number() OVER(ORDER BY R.reply_no DESC) AS num,
+                M.member_nickname,
+                R.*
+        FROM REPLY R
+        INNER JOIN MEMBER M ON (R.member_no = M.member_no)
+        WHERE R.board_no = #{boardNo} AND R.reply_status = 'Y' AND M.member_status = 'Y'
+        ORDER BY R.reply_date DESC
+        LIMIT #{offset},#{limit}
+    </select>
+
+    <select id="findByReplyCount" parameterType="_int" resultType="_int">
+        SELECT COUNT(*)
+        FROM REPLY
+        WHERE board_no = #{boardNo} AND reply_status = 'Y'
+    </select>
+
+    <delete id="deleteBoard" parameterType="_int">
+        DELETE FROM BOARD
+        WHERE board_no = #{boardNo}
+    </delete>
+
+</mapper>
