@@ -1,0 +1,88 @@
+<th:block th:replace="fragments/html/htmlHead.html::htmlHeadFragment"/>
+<title>feedsoup - boardUpdate</title>
+<link th:href="@{/css/boardUpdateFrom.css}" rel="stylesheet">
+<th:block th:replace="fragments/sidebar/headerSideBar.html::headerSideBarFragment"/>
+
+<form th:action="@{/board/update/{boardNo}(boardNo=*{boardNo})}" th:method="post" th:object="${boardUpdateFormDTO}" class="form-inline" enctype="multipart/form-data" >
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 col-12">작성자</div>
+        <div class="col-sm-3 col-12">
+            <input th:field="*{memberNickname}" class="form-control border-none" type="text" readonly>
+        </div>
+        <div class="col-sm-6 col-12">
+            <div class="row">
+                <div class="col-sm-6">수정날짜</div>
+                <div class="col-sm-6">
+                    <input th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" name="boardUpdate" class="form-control border-none" type="text" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">작성일</div>
+                <div class="col-sm-6">
+                    <input th:value="*{#dates.format(boardDate, 'yyyy-MM-dd')}" name="boardDate" class="form-control border-none" type="text" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-12">조회수</div>
+        <div class="col-sm-9 col-12">
+            <input th:field="*{boardHit}" class="form-control border-none" type="text" readonly>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-12">제목</div>
+        <div class="col-sm-9 col-12">
+            <textarea th:field="*{boardTitle}" th:errorclass="field" placeholder="제목은 최소 10글자 이상 100글자 이하로 작성해주세요." class="form-control border-none " style="width: 100%"></textarea>
+            <p class="field-error" th:errors="*{boardTitle}"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-12 align-middle">내용</div>
+        <div class="col-sm-9 col-12">
+            <textarea th:field="*{boardContent}" th:errorclass="field" placeholder="내용은 최소 10글자 이상 1000글자 이하로 작성해주세요."class="form-control border-none" style="width: 100%"></textarea>
+            <p class="field-error" th:errors="*{boardContent}"></p>
+        </div>
+    </div>
+    <div class="row input-group">
+        <div class="col-sm-3 col-12 align-middle">
+            <p>첨부파일 추가하기</p>
+        </div>
+        <div class="col-sm-9 col-12 align-middle ">
+            <input name="files" class="form-control" type="file" multiple="multiple">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">수정</button>
+    <a th:href="@{/board/{boardNo}/{page}(boardNo=*{boardNo},page=${1})}" type="button" class="btn btn-primary">이전으로</a>
+</div>
+</form>
+
+<th:block th:if="*{not #lists.isEmpty(files)}">
+    <div class="row">
+        <th:block th:each="file : *{files}">
+            <div class="col-sm-6 col-12" th:with="filapath=${file.getFileModifyName()}">
+                <div class="card" style="width: 100%;">
+                    <img th:field="@{/file/__${filapath}__}" th:src="@{/file/__${filapath}__}" name="fileModifyName" style="width: 100%; height: 600px;" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p th:text="${fileStat.count + '번째 첨부파일'}" class="card-text"></p>
+                        <a th:onclick="'deleteFile('+ ${file.boardNo} + ',' +${file.fileNo} +')'" class="btn btn-danger">삭제</a>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+</th:block>
+
+<th:block th:unless="*{not #lists.isEmpty(files)}">
+    <div class="row">
+        <div class="col-sm-12">
+            <span>등록된 첨부파일이 없습니다.</span>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:replace="fragments/sidebar/footerSideBar.html::footerSideBarFragment"/>
+<script type="text/javascript" th:src="@{/js/boardUpdateForm.js}"></script>
+<th:block th:replace="fragments/html/htmlFoot.html::htmlFootFragment"/>
