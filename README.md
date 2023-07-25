@@ -7,8 +7,10 @@
 로그인, 이메일 인증, 회원가입, 공지사항, 자유게시판, 문의게시판
 ## 프로젝트 설명
 ### 사용기술
-
-
+* Frontend
+`HTML` `CSS` `JavaScript` `jQuery` `AJAX` ` JSON`
+* Backend
+`SpringBoot` `Thymeleaf` `JAVA` `MyBatis` `Mysql` 
 ### ERDiagram
 <img width="978" alt="feedsoup-erd" src="https://github.com/leejh-96/feedsoup/assets/115613811/a83110ed-17d5-4edb-83fa-187727cff477">
 
