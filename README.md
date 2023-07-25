@@ -24,6 +24,7 @@
 
 ### API Docs
 * board API Dosc
+* 
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | GET | /board | 게시판 전체 목록 |  |
@@ -35,27 +36,32 @@
 | POST | /board/form | 게시판 작성 form insert  |  |
 | POST | /board/update/{boardNo} | 게시글 수정 update | {boardNo} |
 * emailconfirm API Dosc
+* 
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | POST | /sendMail | 인증 메일 보내기  |  |
 | POST | /validNum | 인증 번호 인증하기 |  |
 * login  API Dosc
+* 
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | GET | /loginForm | 로그인 form 이동하기 |  |
 | POST | /login | 로그인 하기 |  |
 | POST | /logout | 로그아웃 하기 |  |
 * notice API Dosc
+* 
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | POST | /notice/{page} | 공지사항 전체 목록 | {page} |
 * register API Dosc
+* 
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | GET | /register/form | 회원가입 form 이동하기 |  |
 | POST | /register/save | 회원가입 하기 |  |
 | POST | /logout | 로그아웃 하기 |  |
 * reply API Dosc
+* 
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | DELETE | /reply/{boardNo}/{replyNo} | 댓글 삭제 | {boardNo}{replyNo} |
