@@ -23,7 +23,16 @@
 <img width="978" alt="feedsoup-erd" src="https://github.com/leejh-96/feedsoup/assets/115613811/a83110ed-17d5-4edb-83fa-187727cff477">
 
 ### API Docs
-
+| Method | URL Pattern | 설명 | Parameter |
+| --- | --- | --- | --- |
+| GET | /board | 게시판 전체 목록 |  |
+| GET | /board/{boardNo}/{page} | 게시판 상세 페이지 | {boardNo}{page} |
+| GET | /board/form | 게시판 작성 form 이동하기 |  |
+| GET | /board/updateForm/{boardNo} | 게시글 수정 form 이동하기  | {boardNo} |
+| DELETE | /board/delete/{boardNo}/{fileNo} | 게시글 첨부파일 삭제 | {boardNo}{fileNo} |
+| DELETE | /board/{boardNo} | 게시판 삭제 | {boardNo} |
+| POST | /board/form | 게시판 작성 form insert  |  |
+| POST | /board/update/{boardNo} | 게시글 수정 update | {boardNo} |
 ### 구현내용
 
 ### 이슈
