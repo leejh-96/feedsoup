@@ -24,6 +24,7 @@
 
 ### API Docs
 * board API Dosc
+* 
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | GET | /board | 게시판 전체 목록 |  |
