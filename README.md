@@ -90,7 +90,7 @@
 <img width="833" alt="로그인" src="https://github.com/leejh-96/feedsoup/assets/115613811/bad44a91-a14f-4f59-932e-ccae5b1b9b81">
 
 - **로그아웃**
-
+<img width="838" alt="로그아웃" src="https://github.com/leejh-96/feedsoup/assets/115613811/3464acd7-cdfe-47e3-9a54-d9f3745bda31">
 
 ### 이슈
 
