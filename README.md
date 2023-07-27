@@ -22,6 +22,7 @@
 ## 요구사항 정의서
 - **1차 요구사항 정의서 - 완료**
 <img width="503" alt="1차 요구사항 정의서" src="https://github.com/leejh-96/feedsoup/assets/115613811/680a2c2a-4ff5-4a41-9af2-0f036cc27cf0">
+
 - **2차 추가 요구사항 정의서 - 진행중**
 <img width="502" alt="2차 요구사항 정의서" src="https://github.com/leejh-96/feedsoup/assets/115613811/808eef99-f5fa-4c7c-be29-3f9f4255cfd7">
 ## ERDiagram
