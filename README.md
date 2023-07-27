@@ -22,34 +22,11 @@
 ## ERDiagram
 <img width="978" alt="feedsoup-erd" src="https://github.com/leejh-96/feedsoup/assets/115613811/a83110ed-17d5-4edb-83fa-187727cff477">
 ## 요구사항 정의서
-feedsoup 1차 요구사항 정의서 - 완료
-feedsoup 1차 요구사항 정의서 - 완료					
-					
-구분	서비스(메뉴)	기능명	기능설명		비고
-Common	Regist	회원가입	"이메일 인증을 통해 회원가입 (이메일 인증 필요)
-[이메일],[비밀번호],[이름],[나이],[닉네임],[핸드폰],[주소] 입력"		
-					
-User	Board	보드 리스트	 보드 리스트 - 자기소개서 / 포트폴리오 / 자기+포트 (3개 리스트 고정), 검색 기능		
-		보드 생성	카테고리,옵션,제목,내용,파일첨부(공통)		
-		보드 수정	카테고리,옵션,제목,내용,파일첨부(공통)		
-		보드 삭제	보드 삭제		
-		댓글삭제	댓글 삭제		
-		댓글달기	작성하는 유저 닉네임 노출,내용(필수),작성날짜		
-					
-	"Notice
-Board"	Notice 보드 생성	Notice 보드 생성		
-		Notice 보드 수정	Notice 보드 정보 수정 (보드 이름, 보드 설명 등)		
-		Notice 보드 삭제	Notice 보드 삭제		
-		Notice 보드 리스트	Notice 보드 리스트 추가/수정/삭제		
-		댓글달기	작성하는 유저 닉네임 노출,내용(필수),작성날짜		
-		댓글삭제	댓글 삭제		
-					
-					
-					
-					
-![image](https://github.com/leejh-96/feedsoup/assets/115613811/b48a81fd-3e3f-4eec-87d8-f6c772e415b5)
+- **1차 요구사항 정의서 - 완료**
+<img width="503" alt="1차 요구사항 정의서" src="https://github.com/leejh-96/feedsoup/assets/115613811/680a2c2a-4ff5-4a41-9af2-0f036cc27cf0">
 
-
+- **2차 추가 요구사항 정의서 - 진행중**
+<img width="502" alt="2차 요구사항 정의서" src="https://github.com/leejh-96/feedsoup/assets/115613811/808eef99-f5fa-4c7c-be29-3f9f4255cfd7">
 ### API Docs
 - **board**
 
