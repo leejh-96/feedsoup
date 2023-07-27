@@ -83,6 +83,8 @@
 - **회원가입 이메일 인증**
 - <img width="811" alt="회원가입-이메일인증" src="https://github.com/leejh-96/feedsoup/assets/115613811/de6c837d-7e0d-4828-b82d-c9cae55af52b">
 
+- **회원가입**
+
 ### 이슈
 
 ### 프로젝트 후기
