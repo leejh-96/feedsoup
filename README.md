@@ -23,8 +23,8 @@
 <img width="978" alt="feedsoup-erd" src="https://github.com/leejh-96/feedsoup/assets/115613811/a83110ed-17d5-4edb-83fa-187727cff477">
 
 ### API Docs
-* board API Dosc
-* 
+- **board**
+
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | GET | /board | 게시판 전체 목록 |  |
@@ -35,33 +35,38 @@
 | DELETE | /board/{boardNo} | 게시판 삭제 | {boardNo} |
 | POST | /board/form | 게시판 작성 form insert  |  |
 | POST | /board/update/{boardNo} | 게시글 수정 update | {boardNo} |
-* emailconfirm API Dosc
-* 
+
+- **emailconfirm**
+
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | POST | /sendMail | 인증 메일 보내기  |  |
 | POST | /validNum | 인증 번호 인증하기 |  |
-* login  API Dosc
-* 
+
+- **login**
+
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | GET | /loginForm | 로그인 form 이동하기 |  |
 | POST | /login | 로그인 하기 |  |
 | POST | /logout | 로그아웃 하기 |  |
-* notice API Dosc
-* 
+
+- **notice**
+
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | POST | /notice/{page} | 공지사항 전체 목록 | {page} |
-* register API Dosc
-* 
+
+- **register**
+
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | GET | /register/form | 회원가입 form 이동하기 |  |
 | POST | /register/save | 회원가입 하기 |  |
 | POST | /logout | 로그아웃 하기 |  |
-* reply API Dosc
-* 
+
+- **reply**
+
 | Method | URL Pattern | 설명 | Parameter |
 | --- | --- | --- | --- |
 | DELETE | /reply/{boardNo}/{replyNo} | 댓글 삭제 | {boardNo}{replyNo} |
