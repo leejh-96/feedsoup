@@ -109,6 +109,9 @@
 - **로그아웃**
 <img width="838" alt="로그아웃" src="https://github.com/leejh-96/feedsoup/assets/115613811/3464acd7-cdfe-47e3-9a54-d9f3745bda31">
 
+- **공지사항**
+
+- **게시판**
 ## 이슈
 
 ## 프로젝트 후기
