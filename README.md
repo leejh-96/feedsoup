@@ -110,6 +110,11 @@
 <img width="838" alt="로그아웃" src="https://github.com/leejh-96/feedsoup/assets/115613811/3464acd7-cdfe-47e3-9a54-d9f3745bda31">
 
 - **공지사항**
+<img width="841" alt="공지사항" src="https://github.com/leejh-96/feedsoup/assets/115613811/0a381315-90c2-4f6f-b8c8-61791e1c3586">
+* noticeService의 findByNoticeList method cache 적용
+  - @Cacheable 어노테이션을 사용해 해당 메서드에 캐싱 기능을 적용했습니다.
+  - "noticeList" 라는 캐시 이름을 지정하고, 이 메서드가 동일한 인자(offset과 limit)로 호출되면 결과가 캐시에 저장되고, 이후 호출 시 캐시에서 결과를 반환하여 메서드를 실행하지 않습니다.
+  - 캐쉬를 적용한 결과 동일한 인자로 반복적인 요청이 있을 경우 데이터(noticeRepository)에 반복적으로 접근하지 않아도 되므로 애플리케이션 성능이 향상될 수 있었습니다.
 
 - **게시판**
 ## 이슈
