@@ -115,7 +115,7 @@
 * NoticeService의 findByNoticeList method 캐싱 적용
   
   - @Cacheable 어노테이션을 사용해 해당 메서드에 캐싱 기능을 적용했습니다.
-  - "noticeList" 라는 캐시 이름을 지정하고, 이 메서드가 동일한 인자(offset과 limit)로 호출되면 결과가 캐시에 저장되고, 이후 호출 시 캐시에서 결과를 반환하여 메서드를 실행하지 않습니다.
+  - "noticeList" 라는 캐시 이름을 지정하고, 이 메서드가 동일한 인자(offset과 limit)로 호출되면 결과가 캐시에 저장되고, 이후 호출 시 캐시에서 결과를 반환하여 메서드를 실행하지 않도록 했습니다.
 
 * 공지사항 게시판 캐싱 적용 전, 후 성능 테스트
   <img width="1033" alt="공지사항_cache_적용_성능테스트" src="https://github.com/leejh-96/feedsoup/assets/115613811/21d591fd-2393-439d-a007-cec0a3894af1">
