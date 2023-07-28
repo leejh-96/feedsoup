@@ -110,7 +110,7 @@
 <img width="838" alt="로그아웃" src="https://github.com/leejh-96/feedsoup/assets/115613811/3464acd7-cdfe-47e3-9a54-d9f3745bda31">
 
 - **공지사항**
-<img width="841" alt="공지사항" src="https://github.com/leejh-96/feedsoup/assets/115613811/0a381315-90c2-4f6f-b8c8-61791e1c3586">
+<img width="833" alt="공지사항" src="https://github.com/leejh-96/feedsoup/assets/115613811/3fe20934-92e1-4c6c-8496-d3689be7c145">
 
 * NoticeService의 findByNoticeList method 캐싱 적용
   
