@@ -1,14 +1,19 @@
 # "feedsoup"
-
-[간편 이동](#데이터베이스)
-
-### 프로젝트 소개
-자신의 이력서나 포트폴리오, 더 나아가 자유롭게 Communication 하는 Board 기반의 Web-Site
+# 목차 소개
+[프로젝트 소개](## 프로젝트 소개)
+[요구사항 정의서](## 요구사항 정의서)
+[ERDiagram](## ERDiagram)
+[API Docs](## API Docs)
+[구현내용](## 구현내용)
+[이슈](## 이슈)
+[프로젝트 후기](## 프로젝트 후기)
+## 프로젝트 소개
+### 설명
+* 자신의 이력서나 포트폴리오, 더 나아가 자유롭게 Communication 하는 Board 기반의 Web-Site
 ### 개발인원
-총 1명(백엔드)
+* 총 1명(백엔드)
 ### 개발기능
-로그인, 이메일 인증, 회원가입, 공지사항, 자유게시판, 문의게시판
-## 프로젝트 설명
+* 로그인, 이메일 인증, 회원가입, 공지사항, 자유게시판, 문의게시판
 ### 개발 환경
 * `WindowOS` `IntelliJ` `Visual Studio Code` `GitHub` `Sourcetree` `MySQL Workbench` `sqldeveloper`
 ### 사용기술
@@ -32,7 +37,7 @@
 ## ERDiagram
 <img width="978" alt="feedsoup-erd" src="https://github.com/leejh-96/feedsoup/assets/115613811/a83110ed-17d5-4edb-83fa-187727cff477">
 
-### API Docs
+## API Docs
 - **board**
 
 | Method | URL Pattern | 설명 | Parameter |
@@ -81,7 +86,7 @@
 | --- | --- | --- | --- |
 | DELETE | /reply/{boardNo}/{replyNo} | 댓글 삭제 | {boardNo}{replyNo} |
 | POST | /reply/{boardNo} | 댓글 insert | {boardNo} |
-### 구현내용
+## 구현내용
 
 - **회원가입 이메일 인증**
 <img width="811" alt="회원가입-이메일인증" src="https://github.com/leejh-96/feedsoup/assets/115613811/de6c837d-7e0d-4828-b82d-c9cae55af52b">
@@ -95,6 +100,6 @@
 - **로그아웃**
 <img width="838" alt="로그아웃" src="https://github.com/leejh-96/feedsoup/assets/115613811/3464acd7-cdfe-47e3-9a54-d9f3745bda31">
 
-### 이슈
+## 이슈
 
-### 프로젝트 후기
+## 프로젝트 후기
