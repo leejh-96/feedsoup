@@ -107,7 +107,6 @@
 8. 세션에서 EmailConfirmDTO 객체를 가져와서, 없으면 인증 이메일을 보내고 세션에 EmailConfirmDTO 객체를 생성합니다.<br>
    * 이미 세션에 EmailConfirmDTO 객체가 있는 경우, 이미 인증 이메일이 전송된 상태이므로 'sessionTrue'를 status에 저장하여 클라이언트에게 반환합니다.<br>
    * 이메일 발송을 위한 JavaMailSender객체는 EmailConfig 클래스의 빈으로 등록하여 email.properties 파일을 프로퍼티 소스로 사용해 이메일 서버 연결과 관련된 설정 값을 가져오도록 설정했습니다.<br>
-<img width="811" alt="회원가입-이메일인증" src="https://github.com/leejh-96/feedsoup/assets/115613811/de6c837d-7e0d-4828-b82d-c9cae55af52b">
 
 - **회원가입**
 1. 클라이언트가 회원가입 버튼을 누르면 @PostMapping("/save")로 POST 요청이 전송되고, 해당 컨트롤러 메서드가 호출됩니다.<br>
@@ -123,7 +122,6 @@
    * 위의 모든 검증이 통과한 경우, 회원가입 서비스를 호출하여 폼 데이터를 DB에 저장합니다. 그 후, 현재 세션을 무효화하고 새로운 세션을 생성합니다.<br>
 7. 리다이렉트
    * 회원가입이 성공적으로 이루어진 경우, /register/form 엔드포인트로 리다이렉트를 수행합니다. 리다이렉트 시에 status라는 플래시 메시지를 함께 전달합니다.<br>
-<img width="827" alt="회원가입" src="https://github.com/leejh-96/feedsoup/assets/115613811/71955591-96a5-4bff-a4c1-a4950d38aa39">
 
 - **로그인**
 1. 로그인의 경우 모든 요청에 대해 로그인 여부를 체크하고, 로그인되지 않은 사용자의 요청은 로그인 페이지로 리다이렉트시키는 기능을 구현하여 보안상 로그인 인증을 보장하기 위해 로그인 인터셉터(LoginCheckInterceptor)를 정의하고, 이를 WebConfig class에 등록했습니다.<br>
@@ -133,30 +131,25 @@
    * 클라이언트의 세션에 "emailConfirm" 속성이 없는 경우, bindingResult에 "requiredSession" 오류를 추가하고, 회원가입 폼 페이지로 이동합니다.<br>
 3. 로그인 실패
    * bindingResult.reject() : 로그인에 실패한 경우(null을 반환한 경우), bindingResult에 "loginFail" 오류를 추가하고, 로그인 폼 페이지(login/loginForm)로 이동하여 로그인 실패를 보여줍니다.<br>
-<img width="833" alt="로그인" src="https://github.com/leejh-96/feedsoup/assets/115613811/bad44a91-a14f-4f59-932e-ccae5b1b9b81">
 
 - **로그아웃**
 1. 세션의 존재 여부 확인을 통해서 로그아웃 기능을 수행하게 됩니다.
    * 세션 객체가 null인 경우 : 현재 세션이 존재하지 않는 상태에서 로그아웃 요청이 들어온 경우입니다. 이는 이미 로그아웃된 상태라고 판단하고, 추가적인 처리를 하지 않습니다.
    * 세션 객체가 존재하는 경우 : 현재 사용자가 로그인한 상태에서 로그아웃 요청이 들어온 경우입니다. 이 경우 세션을 삭제(invalidate)하여 로그아웃을 처리합니다.
    * 로그아웃 후 리다이렉트 : 로그아웃이 완료되면, /loginForm 엔드포인트로 리다이렉트를 수행하여 로그인 페이지로 이동시킵니다.
-<img width="838" alt="로그아웃" src="https://github.com/leejh-96/feedsoup/assets/115613811/3464acd7-cdfe-47e3-9a54-d9f3745bda31">
 
 - **공지사항**
-<img width="833" alt="공지사항" src="https://github.com/leejh-96/feedsoup/assets/115613811/3fe20934-92e1-4c6c-8496-d3689be7c145">
-
+ 
 * NoticeService의 findByNoticeList method 캐싱 적용
-  
-  - @Cacheable 어노테이션을 사용해 해당 메서드에 캐싱 기능을 적용했습니다.
-  - "noticeList" 라는 캐시 이름을 지정하고, 이 메서드가 동일한 인자(offset과 limit)로 호출되면 결과가 캐시에 저장되고, 이후 호출 시 캐시에서 결과를 반환하여 메서드를 실행하지 않도록 했습니다.
-
+  * @Cacheable 어노테이션을 사용해 해당 메서드에 캐싱 기능을 적용했습니다.
+  * "noticeList" 라는 캐시 이름을 지정하고, 이 메서드가 동일한 인자(offset과 limit)로 호출되면 결과가 캐시에 저장되고, 이후 호출 시 캐시에서 결과를 반환하여 메서드를 실행하지 않도록 했습니다.
 * 공지사항 게시판 캐싱 적용 전, 후 성능 테스트
   <img width="1033" alt="공지사항_cache_적용_성능테스트" src="https://github.com/leejh-96/feedsoup/assets/115613811/21d591fd-2393-439d-a007-cec0a3894af1">
-  - 공지사항 게시판은 데이터의 변화가 자주 발생하지 않고 조회(읽기)가 많이 일어나는 상황이라고 판단하여 cache 적용에 적합하다고 판단했습니다.
-  - 테스트는 apache jmeter를 사용해 총 100006개의 공지사항 게시물,Thread 100,expireAfterWrite를 10초로 설정하여 특정 기간이 지나면 해당 항목이 캐시에서 자동으로 제거되도록 지정했으며, 테스트는 전, 후 모두 60초 동안 진행했습니다.
-  - 캐쉬를 적용한 결과 동일한 인자로 반복적인 요청이 있을 경우 데이터(noticeRepository)에 반복적으로 접근하지 않아도 되므로 애플리케이션 성능이 향상될 수 있었습니다.
+  * 공지사항 게시판은 데이터의 변화가 자주 발생하지 않고 조회(읽기)가 많이 일어나는 상황이라고 판단하여 cache 적용에 적합하다고 판단했습니다.
+  * 테스트는 apache jmeter를 사용해 총 100006개의 공지사항 게시물,Thread 100,expireAfterWrite를 10초로 설정하여 특정 기간이 지나면 해당 항목이 캐시에서 자동으로 제거되도록 지정했으며, 테스트는 전, 후 모두 60초 동안 진행했습니다.
+  * 캐쉬를 적용한 결과 동일한 인자로 반복적인 요청이 있을 경우 데이터(noticeRepository)에 반복적으로 접근하지 않아도 되므로 애플리케이션 성능이 향상될 수 있었습니다.
  
 - **게시판**
-<img width="966" alt="커뮤니케이션게시판" src="https://github.com/leejh-96/feedsoup/assets/115613811/208fa327-03d9-4646-a8c0-2df4c5b143b6">
+
 
 ## 프로젝트 후기
