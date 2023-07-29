@@ -126,6 +126,13 @@
 <img width="827" alt="회원가입" src="https://github.com/leejh-96/feedsoup/assets/115613811/71955591-96a5-4bff-a4c1-a4950d38aa39">
 
 - **로그인**
+1. 로그인의 경우 모든 요청에 대해 로그인 여부를 체크하고, 로그인되지 않은 사용자의 요청은 로그인 페이지로 리다이렉트시키는 기능을 구현하여 보안상 로그인 인증을 보장하기 위해 로그인 인터셉터(LoginCheckInterceptor)를 정의하고, 이를 WebConfig class에 등록했습니다.<br>
+2. 로그인 성공
+   * httpSession.setAttribute() : 로그인에 성공한 경우, 세션에 loginMember라는 이름으로 LoginMemberDTO 객체를 저장합니다. LoginMemberDTO 객체에는 로그인한 회원의 번호와 이름이 저장됩니다.
+리다이렉트: 로그인에 성공한 경우, /board 엔드포인트로 리다이렉트를 수행합니다. 사용자는 로그인 이후에 게시판으로 이동하게 됩니다.
+   * 클라이언트의 세션에 "emailConfirm" 속성이 없는 경우, bindingResult에 "requiredSession" 오류를 추가하고, 회원가입 폼 페이지로 이동합니다.<br>
+3. 로그인 실패
+   * bindingResult.reject() : 로그인에 실패한 경우(loginService.login에서 null을 반환한 경우), bindingResult에 "loginFail" 오류를 추가하고, 로그인 폼 페이지(login/loginForm)로 이동하여 로그인 실패를 보여줍니다.<br>
 <img width="833" alt="로그인" src="https://github.com/leejh-96/feedsoup/assets/115613811/bad44a91-a14f-4f59-932e-ccae5b1b9b81">
 
 - **로그아웃**
