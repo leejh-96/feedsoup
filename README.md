@@ -110,21 +110,19 @@
 <img width="811" alt="회원가입-이메일인증" src="https://github.com/leejh-96/feedsoup/assets/115613811/de6c837d-7e0d-4828-b82d-c9cae55af52b">
 
 - **회원가입**
-1. 사용자가 이메일 인증 버튼을 클릭하면 JavaScript function sendMail(memberId) 함수를 호출합니다.<br>
-2. 입력한 이메일의 유효성 검사가 function emailCheck(memberId) 함수를 호출하여 정규표현식과 비교해 값의 유효성검사를 1차적으로 검사합니다.<br>
-3. 유효한 값일 경우 function sendMailToServer(memberId, message) 함수를 호출하여 이메일 주소와 메시지를 서버로 전송하는 AJAX 요청을 수행합니다.<br>
-- 서버로의 AJAX 요청은 /sendMail 엔드포인트로 보내집니다.
-- 요청은 POST 메서드로 이메일 주소를 데이터로 전송합니다.
-4. /sendMail 엔드포인트를 처리하는 컨트롤러 메서드인 sendMail은 클라이언트로부터 전달된 EmailConfirmDTO 객체를 파라미터로 받습니다.<br>
-5. @Validated와 @ModelAttribute 어노테이션을 사용하여 EmailConfirmDTO 객체를 유효성 검사하고, 바인딩 결과를 BindingResult 객체에 저장합니다.<br>
-6. status라는 Map 객체를 생성하여 응답 결과를 저장합니다.<br>
-7. 이메일 유효성 검사와 이메일 중복 체크를 차례대로 수행하며 유효하지 않은 경우 status에 결과값을 저장하여 클라이언트에게 반환합니다.<br>
-8. 세션에서 EmailConfirmDTO 객체를 가져와서, 없으면 인증 이메일을 보내고 세션에 EmailConfirmDTO 객체를 생성합니다.<br>
-- 이 경우, status에 'createSessionEmailConfirm'를 저장하여 클라이언트에게 반환합니다.
-- 이미 세션에 EmailConfirmDTO 객체가 있는 경우, 이미 인증 이메일이 전송된 상태이므로 'sessionTrue'를 status에 저장하여 클라이언트에게 반환합니다.
-
-
-
+1. 클라이언트가 회원가입 버튼을 누르면 @PostMapping("/save")로 POST 요청이 전송되고, 해당 컨트롤러 메서드가 호출됩니다.<br>
+2. 세션 검증
+   * 클라이언트의 세션에 "emailConfirm" 속성이 없는 경우, bindingResult에 "requiredSession" 오류를 추가하고, 회원가입 폼 페이지로 이동합니다.<br>
+3. 세션객체와 바인딩객체의 이메일, 인증번호 일치 여부 체크
+   * 클라이언트가 입력한 회원가입 폼의 이메일과 세션에 저장된 EmailConfirmDTO 객체의 이메일, 인증번호가 일치하지 않으면, bindingResult에 "mismatch" 오류를 추가하고, 회원가입 폼 페이지로 이동합니다.<br>
+4. 폼 바인딩 객체의 유효성 검증
+   * 회원가입 폼 데이터의 유효성 검사를 수행합니다. 만약 폼에 오류가 있다면, 회원가입 폼 페이지로 이동하여 오류를 보여줍니다.<br>
+5. 닉네임 중복검사
+   * 회원가입 폼에서 입력한 닉네임이 이미 사용 중인지 확인합니다. 만약 중복된 닉네임이라면, bindingResult에 "duplicateNickname" 오류를 추가하고, 회원가입 폼 페이지로 이동합니다.<br>
+6. 회원가입 서비스 호출 및 세션 관리
+   * 위의 모든 검증이 통과한 경우, 회원가입 서비스를 호출하여 폼 데이터를 DB에 저장합니다. 그 후, 현재 세션을 무효화하고 새로운 세션을 생성합니다.<br>
+7. 리다이렉트
+   * 회원가입이 성공적으로 이루어진 경우, /register/form 엔드포인트로 리다이렉트를 수행합니다. 리다이렉트 시에 status라는 플래시 메시지를 함께 전달합니다.<br>
 <img width="827" alt="회원가입" src="https://github.com/leejh-96/feedsoup/assets/115613811/71955591-96a5-4bff-a4c1-a4950d38aa39">
 
 - **로그인**
