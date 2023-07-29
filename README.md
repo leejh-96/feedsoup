@@ -94,11 +94,24 @@
 | DELETE | /reply/{boardNo}/{replyNo} | 댓글 삭제 | {boardNo}{replyNo} |
 | POST | /reply/{boardNo} | 댓글 insert | {boardNo} |
 ## 구현내용
+- **공통**
+- 서버에서의 유효성 검사
+* @Validation과 BindingResult을 사용해 폼 데이터의 유효성 검사를 수행하고 검사 결과를 처리했습니다.
+* errors.properties를 통해 해당 오류에 대한 메시지를 지정 했습니다.
+  * 사용 이유 : 입력 데이터의 검증을 통해 잘못된 데이터가 서버로 전달되는 것을 방지하고, 사용자가 악의적인 데이터를 전송하여 보안에 취약한 상태를 만드는 것을 방지하기 위해 사용했습니다>
+클라이언트 측에서 간단한 유효성 검사를 수행해도 되지만, 서버 측에서 유효성을 추가로 검사하여 사용자 경험 향상을 위해 사용했습니다.
+  * 적용된 기능 : 게시글 검색 기능, 게시글 작성 기능, 게시글 수정 기능, 이메일 인증 기능, 로그인 기능, 회원가입 기능
 
-- **회원가입 이메일 인증**<br>
-1. 사용자가 이메일 인증 버튼을 클릭하면 JavaScript function sendMail(memberId) 함수를 호출합니다.<br>
-2. 입력한 이메일의 유효성 검사가 function emailCheck(memberId) 함수를 호출하여 정규표현식과 비교해 값의 유효성검사를 1차적으로 검사합니다.<br>
-3. 유효한 값일 경우 function sendMailToServer(memberId, message) 함수를 호출하여 이메일 주소와 메시지를 서버로 전송하는 AJAX 요청을 수행합니다.<br>
+- 로그인 인터셉터
+* 로그인의 경우 모든 요청에 대해 로그인 여부를 체크하기 위해서 로그인 인터셉터(LoginCheckInterceptor)를 정의하고, 이를 WebConfig class에 등록했습니다.
+* 로그인되지 않은 사용자의 요청은 로그인 페이지로 리다이렉트시키는 기능을 구현했습니다.
+* 사용 이유 : 보안상 로그인 인증을 보장하기 위해 사용했습니다.
+  * 적용된 기능 : 회원가입 기능, 로그인 기능과 정적인 리소스를 제외한 모든 기능에 로그인 인터셉터를 적용시켰습니다.
+
+- **회원가입 이메일 인증**
+1. 사용자가 이메일 인증 버튼을 클릭하면 JavaScript sendMail(memberId) 함수를 호출합니다.<br>
+2. 입력한 이메일의 유효성 검사가 emailCheck(memberId) 함수를 호출하여 정규표현식과 비교해 값의 유효성검사를 1차적으로 검사합니다.<br>
+3. 유효한 값일 경우 sendMailToServer(memberId, message) 함수를 호출하여 이메일 주소와 메시지를 서버로 전송하는 AJAX 요청을 수행합니다.<br>
    * 서버로의 AJAX 요청은 /sendMail 엔드포인트로 보내지며,요청은 POST 메서드로 이메일 주소를 데이터로 전송합니다.<br>
 4. /sendMail 엔드포인트를 처리하는 컨트롤러 메서드인 sendMail은 클라이언트로부터 전달된 EmailConfirmDTO 객체를 파라미터로 받습니다.<br>
 5. @Validated와 @ModelAttribute 어노테이션을 사용하여 EmailConfirmDTO 객체를 유효성 검사하고, 바인딩 결과를 BindingResult 객체에 저장합니다.<br>
