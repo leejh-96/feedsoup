@@ -95,7 +95,7 @@
 | POST | /reply/{boardNo} | 댓글 insert | {boardNo} |
 ## 구현내용
 
-- **회원가입 이메일 인증**
+- **회원가입 이메일 인증**<br>
   -1. 사용자가 이메일 인증 버튼을 클릭하면 JavaScript function sendMail(memberId) 함수를 호출합니다.<br>
   -2. 입력한 이메일의 유효성 검사가 function emailCheck(memberId) 함수를 호출하여 정규표현식과 비교해 값의 유효성검사를 1차적으로 검사합니다.<br>
   -3. 유효한 값일 경우 function sendMailToServer(memberId, message) 함수를 호출하여 이메일 주소와 메시지를 서버로 전송하는 AJAX 요청을 수행합니다.<br>
