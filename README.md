@@ -99,15 +99,15 @@
 1. 사용자가 이메일 인증 버튼을 클릭하면 JavaScript function sendMail(memberId) 함수를 호출합니다.<br>
 2. 입력한 이메일의 유효성 검사가 function emailCheck(memberId) 함수를 호출하여 정규표현식과 비교해 값의 유효성검사를 1차적으로 검사합니다.<br>
 3. 유효한 값일 경우 function sendMailToServer(memberId, message) 함수를 호출하여 이메일 주소와 메시지를 서버로 전송하는 AJAX 요청을 수행합니다.<br>
-** 서버로의 AJAX 요청은 /sendMail 엔드포인트로 보내지며,요청은 POST 메서드로 이메일 주소를 데이터로 전송합니다.<br>
+   * 서버로의 AJAX 요청은 /sendMail 엔드포인트로 보내지며,요청은 POST 메서드로 이메일 주소를 데이터로 전송합니다.<br>
 
 4. /sendMail 엔드포인트를 처리하는 컨트롤러 메서드인 sendMail은 클라이언트로부터 전달된 EmailConfirmDTO 객체를 파라미터로 받습니다.<br>
 5. @Validated와 @ModelAttribute 어노테이션을 사용하여 EmailConfirmDTO 객체를 유효성 검사하고, 바인딩 결과를 BindingResult 객체에 저장합니다.<br>
 6. status라는 Map 객체를 생성하여 응답 결과를 저장합니다.<br>
 7. 이메일 유효성 검사와 이메일 중복 체크를 차례대로 수행하며 유효하지 않은 경우 status에 결과값을 저장하여 클라이언트에게 반환합니다.<br>
 8. 세션에서 EmailConfirmDTO 객체를 가져와서, 없으면 인증 이메일을 보내고 세션에 EmailConfirmDTO 객체를 생성합니다.<br>
-** 이미 세션에 EmailConfirmDTO 객체가 있는 경우, 이미 인증 이메일이 전송된 상태이므로 'sessionTrue'를 status에 저장하여 클라이언트에게 반환합니다.<br>
-<비고> 이메일 발송을 위한 JavaMailSender객체는 EmailConfig 클래스의 빈으로 등록하여 email.properties 파일을 프로퍼티 소스로 사용해 이메일 서버 연결과 관련된 설정 값을 가져오도록 설정했습니다.<br>
+   * 이미 세션에 EmailConfirmDTO 객체가 있는 경우, 이미 인증 이메일이 전송된 상태이므로 'sessionTrue'를 status에 저장하여 클라이언트에게 반환합니다.<br>
+*<비고> 이메일 발송을 위한 JavaMailSender객체는 EmailConfig 클래스의 빈으로 등록하여 email.properties 파일을 프로퍼티 소스로 사용해 이메일 서버 연결과 관련된 설정 값을 가져오도록 설정했습니다.<br>
 <img width="811" alt="회원가입-이메일인증" src="https://github.com/leejh-96/feedsoup/assets/115613811/de6c837d-7e0d-4828-b82d-c9cae55af52b">
 
 - **회원가입**
