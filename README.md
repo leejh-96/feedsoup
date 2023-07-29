@@ -105,7 +105,7 @@
 6. status라는 Map 객체를 생성하여 응답 결과를 저장합니다.<br>
 7. 이메일 유효성 검사와 이메일 중복 체크를 차례대로 수행하며 유효하지 않은 경우 status에 결과값을 저장하여 클라이언트에게 반환합니다.<br>
 8. 세션에서 EmailConfirmDTO 객체를 가져와서, 없으면 인증 이메일을 보내고 세션에 EmailConfirmDTO 객체를 생성합니다.<br>
-   * 이미 세션에 EmailConfirmDTO 객체가 있는 경우, 이미 인증 이메일이 전송된 상태이므로 'sessionTrue'를 status에 저장하여 클라이언트에게 반환합니다.<br>
+   * 이미 세션에 EmailConfirmDTO 객체가 있는 경우, 이미 인증 이메일이 전송된 상태이므로 인증 메일을 발송하지 않도록 했습니다.<br>
    * 이메일 발송을 위한 JavaMailSender객체는 EmailConfig 클래스의 빈으로 등록하여 email.properties 파일을 프로퍼티 소스로 사용해 이메일 서버 연결과 관련된 설정 값을 가져오도록 설정했습니다.<br>
 
 - **회원가입**
