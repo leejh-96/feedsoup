@@ -1,6 +1,7 @@
 package com.feed.feedsoup.service;
 
 import com.feed.feedsoup.dto.FileUploadDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,11 @@ public class FileService {
 //  다중 파일 업로드시에 내부에 singleFile() 호출을 통해 절대경로에 파일을 저장
     public List<FileUploadDTO> multipleFiles(List<MultipartFile> multipartFiles, int boardNo) throws IOException {
         List<FileUploadDTO> fileUploadList = new ArrayList<>();
+
+        if (multipartFiles == null){
+            return null;
+        }
+
         if (!multipartFiles.isEmpty()){
             for (MultipartFile multipartFile : multipartFiles){
                 String originalFilename = multipartFile.getOriginalFilename();
@@ -65,6 +71,7 @@ public class FileService {
         return fileUploadList;
     }
 
+//  파일 삭제
     public void deleteFile(String fileModifyName) {
         File file = new File(fileDir + fileModifyName);
 
@@ -74,8 +81,14 @@ public class FileService {
     }
 
     public boolean filesEmptyCheck(List<MultipartFile> multipartFiles) {
+
+        if (multipartFiles == null){
+            return false;
+        }
+
         for (int i = 0; i < multipartFiles.size();i++){
             log.info("isEmpty : {}",multipartFiles.get(i).isEmpty());
+            log.info("null : {}",multipartFiles.get(i));
             if (multipartFiles.get(i).isEmpty()==false){
                 return false;
             }
