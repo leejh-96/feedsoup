@@ -1,6 +1,5 @@
 package com.feed.feedsoup.service;
 
-import com.feed.feedsoup.dto.BoardDetailDTO;
 import com.feed.feedsoup.dto.BoardUpdateFormDTO;
 import com.feed.feedsoup.dto.FileDTO;
 import com.feed.feedsoup.dto.FileUploadDTO;
@@ -49,15 +48,20 @@ public class BoardUpdateService {
 
     @Transactional(rollbackFor = {IOException.class, NullPointerException.class})
     public void updateBoard(BoardUpdateFormDTO boardUpdateFormDTO) throws IOException {
+
         //게시물 업데이트
         boardUpdateRepository.updateBoard(boardUpdateFormDTO);
 
-        if (!fileService.filesEmptyCheck(boardUpdateFormDTO.getFiles())){
-            //파일 업데이트하기
-            List<FileUploadDTO> fileUploadDTOList = fileService.multipleFiles(boardUpdateFormDTO.getFiles(), boardUpdateFormDTO.getBoardNo());
-            //DB 저장
-            boardFormRepository.saveFile(fileUploadDTOList);
-        }
+        if (boardUpdateFormDTO.getFiles() != null){
+            if (!fileService.filesEmptyCheck(boardUpdateFormDTO.getFiles())){
+                //파일 업데이트하기
+                List<FileUploadDTO> fileUploadDTOList = fileService.multipleFiles(boardUpdateFormDTO.getFiles(), boardUpdateFormDTO.getBoardNo());
 
+                if (fileUploadDTOList != null){
+                    //DB 저장
+                    boardFormRepository.saveFile(fileUploadDTOList);
+                }
+            }
+        }
     }
 }
