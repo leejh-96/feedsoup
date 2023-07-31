@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script th:inline="javascript">
+    /* "msg" 변수를 가져와서 출력 */
+    let msg = /*[[${msg}]]*/ "";
+    if (msg) {
+        alert(msg);
+    }
+
+    /* "location" 변수를 가져와서 이동 */
+    let locationUrl = /*[[${location}]]*/ "";
+    if (locationUrl) {
+        window.location.href = locationUrl;
+    }
+</script>
+</body>
+</html>
