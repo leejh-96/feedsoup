@@ -41,14 +41,17 @@ public class BoardFormService implements BoardInterface{
         // boardFormRepository saveBoard 설정 (useGeneratedKeys="true" keyProperty="boardNo")으로 insert 작업 후 boardFormDTO boardNo에 매핑된다.
         boardFormRepository.saveBoard(boardFormDTO);
 
-        if (!fileService.filesEmptyCheck(boardFormDTO.getFiles())){
-            // 파일 업로드
-            List<FileUploadDTO> fileUploadDTOList = fileService.multipleFiles(boardFormDTO.getFiles(), boardFormDTO.getBoardNo());
-            // 파일 등록
-            boardFormRepository.saveFile(fileUploadDTOList);
+        if (boardFormDTO.getFiles() != null){
+            if (!fileService.filesEmptyCheck(boardFormDTO.getFiles())){
+                // 파일 업로드
+                List<FileUploadDTO> fileUploadDTOList = fileService.multipleFiles(boardFormDTO.getFiles(), boardFormDTO.getBoardNo());
+
+                if (fileUploadDTOList != null){
+                    // 파일 등록
+                    boardFormRepository.saveFile(fileUploadDTOList);
+                }
+            }
         }
-
     }
-
 
 }
