@@ -4,6 +4,7 @@ import com.feed.feedsoup.dto.LoginFormDTO;
 import com.feed.feedsoup.dto.LoginMemberDTO;
 import com.feed.feedsoup.dto.MemberDTO;
 import com.feed.feedsoup.service.LoginService;
+import com.feed.feedsoup.util.PasswordEncryption;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ public class LoginController {
 
     @GetMapping("/loginForm")
     public String login(Model model){
+        // 로그인 폼에서 유효성 검증에 사용할 객체를 model 담아서 해당 뷰로 전달
         model.addAttribute("loginFormDTO",new LoginFormDTO());
         return "login/loginForm";
     }
@@ -34,18 +36,29 @@ public class LoginController {
     public String login(@Validated @ModelAttribute LoginFormDTO loginFormDTO,
                         BindingResult bindingResult,HttpSession httpSession){
 
+        // loginFormDTO의 유효성 검증
         if (bindingResult.hasErrors()){
             return "login/loginForm";
         }
 
-        MemberDTO memberDTO = loginService.login(loginFormDTO);
+        //데이터베이스에 일치하는 member 를 return
+        MemberDTO memberDTO = loginService.getMemberInfo(loginFormDTO);
 
+        //return 받은 member가 null 이라면 로그인 실패 메세지를 띄움
         if (memberDTO == null){
             bindingResult.reject("loginFail");
             return "login/loginForm";
         }
 
+        // 입력받은 패스워드와 데이터베이스의 패스워드를 대조해 일치 하지 않는다면 로그인 실패 메세지를 띄움
+        if (!PasswordEncryption.checkUserPw(loginFormDTO.getMemberPassword(),memberDTO.getMemberPassword())){
+            bindingResult.reject("loginFail");
+            return "login/loginForm";
+        }
+
+        // 세션에 login 정보를 저장한 후 게시판으로 리다이렉트
         httpSession.setAttribute("loginMember",new LoginMemberDTO(memberDTO.getMemberNo(), memberDTO.getMemberName()));
+
         return "redirect:/board";
     }
 
