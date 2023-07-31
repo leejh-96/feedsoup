@@ -13,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
@@ -38,7 +37,7 @@ public class RegisterController {
     @PostMapping("/save")
     public String save(@SessionAttribute(value = "emailConfirm", required = false) EmailConfirmDTO sessionEmailConfirmDTO,
                        @Validated @ModelAttribute RegisterFormDTO registerFormDTO, BindingResult bindingResult,
-                       HttpSession httpSession,RedirectAttributes redirectAttributes){
+                       HttpSession httpSession,RedirectAttributes redirectAttributes,Model model){
 //      세션 검증
         if (sessionEmailConfirmDTO == null){
             bindingResult.reject("requiredSession");
@@ -61,9 +60,10 @@ public class RegisterController {
 //      회원가입 서비스 호출하기 && 기존 세션 삭제 후 새로운 세션 생성하기
         registerService.save(registerFormDTO);
         httpSession.invalidate();
-        redirectAttributes.addFlashAttribute("status",true);
+        model.addAttribute("msg","회원가입에 성공했습니다.");
+        model.addAttribute("location","/loginForm");
 
-        return "redirect:/register/form";
+        return "fragments/msg";
     }
 
 }
