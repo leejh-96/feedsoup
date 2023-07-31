@@ -11,10 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-//    @Value("${file.dir}")
-//    private String fileDir = "C:/Users/LG/feedsoup/file";
-
-    private String resourceLocation = "file:///C:/Users/LG/feedsoup/file/";
+    @Value("${resource.location}")
+    private String resourceLocation;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
