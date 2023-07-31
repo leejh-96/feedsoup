@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feed.feedsoup.repository.NoticeRepository">
+    <select id="findByNoticeCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM BOARD
+        WHERE board_status = 'Y'
+    </select>
+    <select id="findByNoticeList" resultType="BoardListDTO">
+        SELECT  row_number() OVER(ORDER BY B.board_no DESC) AS num,
+                BP.board_option_type,
+                B.board_no,
+                B.board_title,
+                M.member_nickname,
+                B.board_hit,
+                B.board_date
+        FROM BOARD B
+        INNER JOIN BOARDOPTION BP ON (B.board_option_no = BP.board_option_no)
+        INNER JOIN MEMBER M ON (B.member_no = M.member_no)
+        WHERE B.board_status = 'Y' AND M.member_status = 'Y'
+        ORDER BY B.board_date DESC
+        LIMIT #{offset},#{limit}
+    </select>
+</mapper>
