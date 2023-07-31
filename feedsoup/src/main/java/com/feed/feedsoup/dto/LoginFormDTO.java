@@ -13,7 +13,6 @@ public class LoginFormDTO {
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     @NotBlank
     private String memberId;
-
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,16}$")
     @NotBlank
     private String memberPassword;

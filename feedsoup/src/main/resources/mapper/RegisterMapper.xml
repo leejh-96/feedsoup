@@ -5,20 +5,25 @@
 <mapper namespace="com.feed.feedsoup.repository.RegisterRepository">
 
     <sql id="selectMemberCount">
-        SELECT count(*) FROM member
+        SELECT count(*)
+        FROM member
     </sql>
 
     <insert id="save" parameterType="RegisterFormDTO">
-        INSERT INTO member (member_type,member_status,member_id,member_password,member_name,member_birthdate,member_nickname,member_phone,member_address,member_date,member_update)
-        VALUES('MEMBER','Y',#{memberId},#{memberPassword},#{memberName},#{memberBirthdate},#{memberNickname},#{memberPhone},#{memberAddress},DEFAULT,NULL)
+        INSERT INTO member
+            (member_type,member_status,member_id,member_password,member_name,member_birthdate,member_nickname,member_phone,member_address,member_date,member_update)
+        VALUES
+            ('MEMBER','Y',#{memberId},#{memberPassword},#{memberName},#{memberBirthdate},#{memberNickname},#{memberPhone},#{memberAddress},DEFAULT,NULL)
     </insert>
 
     <select id="duplicateEmail" parameterType="string" resultType="_int">
-        <include refid="selectMemberCount"/> WHERE member_id = #{memberId}
+        <include refid="selectMemberCount"/>
+        WHERE member_id = #{memberId}
     </select>
 
     <select id="duplicateNickname" parameterType="string" resultType="_int">
-        <include refid="selectMemberCount"/> WHERE member_nickname = #{memberNickname}
+        <include refid="selectMemberCount"/>
+        WHERE member_nickname = #{memberNickname}
     </select>
 
 </mapper>

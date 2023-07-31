@@ -9,7 +9,6 @@ import lombok.ToString;
 public class LoginMemberDTO {
 
     private int memberNo;
-
     private String memberName;
 
     public LoginMemberDTO() {

@@ -12,7 +12,6 @@ public class ReplyService {
 
     private final ReplyRepository replyRepository;
 
-
     public void saveReply(int boardNo, String reply, int memberNo) {
         replyRepository.saveReply(boardNo,reply,memberNo);
     }

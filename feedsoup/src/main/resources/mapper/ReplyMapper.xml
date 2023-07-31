@@ -3,13 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.feed.feedsoup.repository.ReplyRepository">
+
     <insert id="saveReply">
-        INSERT INTO REPLY (BOARD_NO,MEMBER_NO,REPLY_CONTENT,REPLY_DATE,REPLY_UPDATE,REPLY_STATUS)
-        VALUES(#{boardNo},#{memberNo},#{reply},DEFAULT,NULL,'Y')
+        INSERT INTO REPLY
+            (BOARD_NO,MEMBER_NO,REPLY_CONTENT,REPLY_DATE,REPLY_UPDATE,REPLY_STATUS)
+        VALUES
+            (#{boardNo},#{memberNo},#{reply},DEFAULT,NULL,'Y')
     </insert>
 
     <delete id="deleteReply">
-        DELETE FROM REPLY
+        DELETE
+        FROM REPLY
         WHERE reply_no = #{replyNo} AND board_no = #{boardNo}
     </delete>
+
 </mapper>

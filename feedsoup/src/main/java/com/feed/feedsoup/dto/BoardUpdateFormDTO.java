@@ -16,24 +16,17 @@ import java.util.List;
 public class BoardUpdateFormDTO {
 
     private int boardNo;
-
     private int memberNo;
-
     private String memberNickname;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date boardDate;
-
     @Length(min = 10, max = 100)
     @NotBlank
     private String boardTitle;
-
     @Length(min = 10, max = 1000)
     @NotBlank
     private String boardContent;
-
     private int boardHit;
-
     List<MultipartFile> files;
 
 }

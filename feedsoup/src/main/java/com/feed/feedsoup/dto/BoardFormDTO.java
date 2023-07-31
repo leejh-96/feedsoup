@@ -12,24 +12,18 @@ import java.util.List;
 public class BoardFormDTO {
 
    private int memberNo;
-
    private int boardNo;
-
    @Positive
    @Max(value = 9)
    private int boardCategoryNo;
-
    @Positive
    @Max(value = 9)
    private int boardOptionNo;
-
    @Length(min = 10, max = 100)
    @NotBlank
    private String boardTitle;
-
    @Length(min = 10, max = 1000)
    @NotBlank
    private String boardContent;
-
    private List<MultipartFile> files;
 }

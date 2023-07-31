@@ -12,9 +12,7 @@ public class EmailConfirmDTO {
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     @NotBlank
     private String memberId;
-
     private String checkNum;
-
     private String emailStatus;
 
     public EmailConfirmDTO(){}

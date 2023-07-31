@@ -4,11 +4,6 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.feed.feedsoup.repository.BoardUpdateRepository">
 
-<!--    <resultMap id="findByBoardResultMap" type="BoardUpdateFormDTO">-->
-<!--        <id property="boardNo" column="board_no"/>-->
-<!--        <collection property="files" column="board_no" select="findByFileWithBoard" javaType="arraylist"/>-->
-<!--    </resultMap>-->
-
     <select id="findByBoard" parameterType="_int" resultType="BoardUpdateFormDTO">
         SELECT  B.board_no,
                 M.member_no,
@@ -22,12 +17,6 @@
         INNER JOIN MEMBER M ON (B.member_no = M.member_no)
         WHERE board_no = #{boardNo} AND board_status = 'Y' AND M.member_status = 'Y'
     </select>
-
-<!--    <select id="findByFileWithBoard" resultType="FileDTO">-->
-<!--        SELECT *-->
-<!--        FROM FILE-->
-<!--        WHERE board_no = #{boardNo}-->
-<!--    </select>-->
 
     <select id="findByFile" resultType="FileDTO">
         SELECT *
@@ -48,13 +37,14 @@
 
     <update id="updateBoard" parameterType="BoardUpdateFormDTO">
         UPDATE BOARD
-        SET board_title = #{boardTitle}, board_content = #{boardContent}
+        SET board_title = #{boardTitle},
+            board_content = #{boardContent}
         WHERE board_no = #{boardNo}
     </update>
 
     <insert id="saveFile" parameterType="list">
         INSERT INTO FILE
-        (file_original_name,file_modify_name,file_date,board_no)
+            (file_original_name,file_modify_name,file_date,board_no)
         VALUES
         <foreach collection="list" item="file" separator=",">
             <if test="file != null">
