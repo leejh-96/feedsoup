@@ -45,6 +45,8 @@ public class FileServiceTest {
 //        given
         MockMultipartFile file1 = null;
 
+        log.info("hihihihihihi");
+
 //        then
 //        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> fileService.singleFile(file1));
     }
