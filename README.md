@@ -47,6 +47,7 @@
   * 테스트 상황 : 총 100,000 개의 공지사항 게시물 + 100개의 Thread 설정 + 60초 동안 테스트 진행
 * 캐시 적용 전 부하 테스트 그래프
 <img width="709" alt="캐시적용전_부하테스트그래프" src="https://github.com/leejh-96/feedsoup/assets/115613811/61d1d77f-b7e3-461f-8641-76abbb9b6369">
+
 * 캐시 적용 전 성능 평가 결과
 <img width="185" alt="캐시적용전성능평가결과(최종)" src="https://github.com/leejh-96/feedsoup/assets/115613811/5898cae5-4bd2-40aa-9cca-3f7c97044add">
 
@@ -55,11 +56,13 @@
   * 테스트 상황 : 총 100,000 개의 공지사항 게시물 + 100개의 Thread 설정 + Cache 유효 시간을 10초로 설정 + 60초 동안 테스트 진행
 * 캐시 적용 후 부하 테스트 그래프
 <img width="824" alt="캐시적용후_부하테스트그래프" src="https://github.com/leejh-96/feedsoup/assets/115613811/871b91b9-446e-4d73-b38d-22ef8fcb3617">
+
 * 캐시 적용 후 성능 평가 결과
 <img width="184" alt="캐시적용후성능평가결과(최종)" src="https://github.com/leejh-96/feedsoup/assets/115613811/84d4ebd9-9365-4272-a91b-94e7ff092fe9">
 
 * 캐시 적용 전/후 비교
 <img width="276" alt="요약결과" src="https://github.com/leejh-96/feedsoup/assets/115613811/1fe387d4-6d72-4a8c-9475-ff8b4a7dc1d4">
+
 * 테스트 후기
 캐시 적용 후 평균 응답 시간이 0.099초로, 캐시 적용 전(0.819초)에 비해 크게 감소했습니다. 최대 응답 시간은 0.929초로,
 캐시 적용 전(1.036초)보다 짧아졌습니다. 최소 응답 시간은 0.003초로, 캐시 적용 전(0.678초)보다 매우 짧아졌습니다.
